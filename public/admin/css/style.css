@@ -262,6 +262,20 @@ header.header .inner-logo a:hover {
 }
 
 
+img[upload-input-preview] {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
 
+span[preview-hidden] {
+    display: none;
+}
 
+span[preview-hidden].active {
+    display: inline-block;
+    padding: 5px;
+    background: #ddd;
+    cursor: pointer;
 
+}

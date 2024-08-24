@@ -57,7 +57,10 @@ block main
                 placeholder="Điền số lượng"
                 min=0
             )
-        div(class="form-group")
+        div(
+            class="form-group"
+            upload-input
+        )
             label(for="thumbnail") <strong>Ảnh</strong>
             input(
                 type="file"
@@ -65,7 +68,16 @@ block main
                 id="thumbnail"
                 class="form-control-file"
                 accept="image/*"
+                upload-input-image
             )
+            img(
+                upload-input-preview 
+                src=""
+            )
+            span(
+                preview-hidden 
+                class="preview--button__hidden"
+            ) X
         div(class="form-group")
             label(for="position") <strong>Vị trí</strong>
             input(

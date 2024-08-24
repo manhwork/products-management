@@ -180,8 +180,8 @@ const showAlert = document.querySelector('[show-alert]');
 if (showAlert) {
 
     const closeNotifycation = showAlert.querySelector('[close-notifycation]');
-    
-    closeNotifycation.addEventListener('click', () => { 
+
+    closeNotifycation.addEventListener('click', () => {
         showAlert.classList.add('alert-hidden');
     })
 
@@ -192,3 +192,40 @@ if (showAlert) {
     }, time);
 }
 // End Show Alert
+
+
+// Preview Image
+
+
+const uploadInput = document.querySelector('[upload-input]');
+const uploadInputImage = document.querySelector('[upload-input-image]');
+const uploadInputPreview = document.querySelector('[upload-input-preview]');
+const previewHidden = document.querySelector('[preview-hidden]');
+
+if (uploadInput) {
+    uploadInputImage.addEventListener('change', (e) => {
+        // console.log(e.target);
+
+        const [file] = uploadInputImage.files;
+
+        // console.log(e.target.files);
+
+        if (file) {
+            uploadInputPreview.src = URL.createObjectURL(file);
+
+            previewHidden.classList.add("active");
+
+            if (previewHidden) {
+                previewHidden.addEventListener("click", () => {
+                    uploadInputPreview.src = "";
+                    uploadInputImage.value = "";
+                    previewHidden.classList.remove("active");
+                })
+            }
+
+        }
+
+    })
+}
+
+// End Preview Image
