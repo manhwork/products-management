@@ -1,0 +1,290 @@
+Basic reset for margin and padding
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style for the header */
+header.header {
+    background-color: #f8f9fa; /* Light background color for the header */
+    padding: 10px 0; /* Vertical padding for the header */
+}
+
+.header .container {
+    max-width: 1140px; /* Maximum width for the container */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 0 15px; /* Horizontal padding inside the container */
+}
+
+.row {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Vertically center items */
+}
+
+.col-3 {
+    flex: 0 0 25%; /* Take up 25% of the row */
+    max-width: 25%; /* Ensure maximum width is 25% */
+}
+
+.col-9 {
+    flex: 0 0 75%; /* Take up 75% of the row */
+    max-width: 75%; /* Ensure maximum width is 75% */
+}
+
+.inner-logo {
+    display: flex; /* Use flexbox for logo alignment */
+    align-items: center; /* Vertically center the logo */
+}
+
+.inner-logo img {
+    max-width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.inner-menu {
+    display: flex; /* Use flexbox for menu layout */
+    justify-content: flex-end; /* Align menu items to the right */
+}
+
+.inner-menu ul {
+    list-style: none; /* Remove default list styling */
+    display: flex; /* Use flexbox for list items */
+}
+
+.inner-menu li {
+    margin-left: 20px; /* Space between menu items */
+}
+
+.inner-menu a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Dark text color */
+    font-weight: 500; /* Medium font weight */
+    padding: 5px 10px; /* Padding around the text */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+.inner-menu a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Footer styling */
+footer.footer {
+    background-color: #343a40; /* Dark background color for the footer */
+    color: #fff; /* White text color */
+    padding: 20px 0; /* Vertical padding */
+}
+
+.footer-about, .footer-links, .footer-social {
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.footer-about h3, .footer-links h3, .footer-social h3 {
+    font-size: 1.5rem; /* Larger font size for headings */
+    margin-bottom: 10px; /* Space below headings */
+}
+
+.footer-about p {
+    font-size: 1rem; /* Font size for paragraphs */
+    line-height: 1.5; /* Line height for readability */
+}
+
+.footer-links ul, .footer-social ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.footer-links li, .footer-social li {
+    margin-bottom: 10px; /* Space between list items */
+}
+
+.footer-links a, .footer-social a {
+    color: #fff; /* White text color for links */
+    text-decoration: none; /* Remove underline from links */
+    transition: color 0.3s; /* Smooth color transition on hover */
+}
+
+.footer-links a:hover, .footer-social a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.footer-social a {
+    display: block; /* Make social links block elements */
+}
+
+.text-center {
+    text-align: center; /* Center-align text */
+}
+
+.footer .container {
+    max-width: 1140px; /* Maximum width for container */
+    margin: 0 auto; /* Center container horizontally */
+    padding: 0 15px; /* Horizontal padding */
+}
+
+@media (min-width: 768px) {
+    .footer .row {
+        display: flex; /* Flexbox layout for medium screens and up */
+    }
+
+    .footer .col-md-4 {
+        flex: 0 0 33.333%; /* Three equal columns */
+        max-width: 33.333%; /* Maximum width for columns */
+    }
+}
+
+@media (max-width: 767px) {
+    .footer .col-md-4 {
+        text-align: center; /* Center-align text for small screens */
+    }
+}
+
+.box-head {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.box-head h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.box-head p {
+    font-size: 16px;
+    color: #666;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+    transform: translateY(-10px);
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.product-title {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e67e22;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.product-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 280px;
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.product-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.product-title {
+    font-size: 1.25rem;
+    margin: 15px 0;
+    color: #555;
+}
+
+.price-box {
+    margin-top: 10px;
+}
+
+.new-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff5722;
+}
+
+.old-price {
+    font-size: 1rem;
+    color: #888;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.new-label {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 6px;
+    background-color: #ff5722;
+    color: #fff;
+    font-size: 0.8rem;
+    border-radius: 3px;
+}
+
+.current-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+

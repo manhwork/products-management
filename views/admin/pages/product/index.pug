@@ -1,0 +1,141 @@
+extends ../../layouts/default.pug
+include ../../mixins/statusFilter.pug
+include ../../mixins/search.pug
+include ../../mixins/change-multi.pug
+include ../../mixins/alert-success.pug
+
+
+block main
+
+    +alert-success(500)
+    
+
+    h1 Danh sách sản phẩm
+
+    .card.mb-3
+        .card-header Bộ lọc và tìm kiếm
+        .card-body
+            .row 
+                .col-6 
+                    +status-filter(statusFilter)
+                .col-6 
+                    +search(keyword)
+
+    .card.mb-3 
+        .card-header Danh sách 
+            .card-body 
+                .row 
+                    .col-10 
+                        +change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                    .col-2
+                        a(
+                            href=`${prefixAdmin}/products/create`
+                            class="btn btn-outline-success"
+                        ) + Thêm mới
+
+
+
+    table.table.table-hover.table-sm
+        thead
+            tr
+                th 
+                    input(type="checkbox", name="checkall")
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Giá
+                th Vị trí
+                th Trạng thái
+                th Hành động
+        tbody
+            each product, index in products
+                tr
+                    td 
+                        input(
+                            type="checkbox" 
+                            name="id"
+                            value = product.id 
+                        )
+                    td #{((objectPagiantion.currentPage - 1) * objectPagiantion.productsLimit) + index + 1}
+                    td
+                        img(
+                            src=product.thumbnail
+                            alt=product.title
+                            width="100px"
+                            height="auto"
+                        )
+                    td #{product.title}
+                    td #{product.price}$
+                    td 
+                        input(
+                            type="number"
+                            value=product.position 
+                            style="width:60px"
+                            min=1
+                            name="position"
+                        )
+                    td
+                        if product.status === 'active'
+                            button(
+                                class="badge badge-success"
+                                button-change-status 
+                                data-id = product.id 
+                                data-status = product.status 
+                            ) Hoạt động
+                        else
+                            button(
+                                class="badge badge-danger"
+                                button-change-status 
+                                data-id = product.id 
+                                data-status = product.status
+                            ) Dừng hoạt động
+                    td
+                        button(class="btn btn-warning btn-sm") Sửa
+                        button(
+                            class="btn btn-danger btn-sm ml-1"
+                            data-id = product.id 
+                            button-delete
+                        ) Xóa
+
+    //- Pagination 
+    nav(aria-label="Page navigation example")
+        ul(class="pagination")
+            if(objectPagiantion.currentPage > 1)
+                li(class="page-item")
+                    button(
+                        class="page-link"
+                        pagination-index = objectPagiantion.currentPage - 1
+                    ) 
+                        span &laquo;
+
+            -for(var i = 1; i <= objectPagiantion.totalpages; i++)
+                li(class = `page-item ${objectPagiantion.currentPage == i? 'active': ''}` )
+                    button(
+                        class="page-link"
+                        pagination-index = i
+                    ) #{i}
+            
+            if(objectPagiantion.currentPage < objectPagiantion.totalpages)
+                li(class="page-item")
+                    button(
+                        class="page-link"
+                        pagination-index = objectPagiantion.currentPage + 1
+                    )  
+                        spann &raquo;
+
+
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/products/change-status/`
+    ) 
+
+    form(
+        action="" 
+        method="post"
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/products/delete`
+    ) 
+
+    script(src="/admin/js/product.js")  
