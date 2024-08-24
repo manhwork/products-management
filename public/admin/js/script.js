@@ -196,7 +196,6 @@ if (showAlert) {
 
 // Preview Image
 
-
 const uploadInput = document.querySelector('[upload-input]');
 const uploadInputImage = document.querySelector('[upload-input-image]');
 const uploadInputPreview = document.querySelector('[upload-input-preview]');

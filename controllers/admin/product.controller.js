@@ -127,25 +127,40 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPOST = async (req, res) => {
 
-    req.body.price = parseInt(req.body.price);
-    req.body.discountPercentage = parseInt(req.body.discountPercentage);
-    req.body.stock = parseInt(req.body.stock);
+    if (req.body) {
 
-    if (req.body.position == "") {
-        const maxPosition = await Product.countDocuments({ deleted: false });
-        req.body.position = maxPosition + 1;
+        if(req.body.price) {
+            req.body.price = parseInt(req.body.price);
+        }
+
+        if(req.body.discountPercentage ){
+            req.body.discountPercentage = parseInt(req.body.discountPercentage);
+        }
+
+        if(req.body.stock) {
+            req.body.stock = parseInt(req.body.stock);
+        }
+
+
+        if (req.body.position == "") {
+            const maxPosition = await Product.countDocuments({ deleted: false });
+            req.body.position = maxPosition + 1;
+        }
+        else {
+            req.body.position = parseInt(req.body.position);
+        }
+
+        if (req.file) {
+            req.body.thumbnail = `/uploads/${req.file.filename}`
+        }
+
+
+        console.log(req.body);
+
+        const product = new Product(req.body);
+        await product.save();
+
+        res.redirect(`${systemConfig.prefixAdmin}/products/`);
     }
-    else {
-        req.body.position = parseInt(req.body.position);
-    }
 
-    req.body.thumbnail = `http://localhost:3000/uploads/${req.file.filename}`
-
-
-    console.log(req.body);
-
-    const product = new Product(req.body);
-    await product.save();
-
-    res.redirect(`${systemConfig.prefixAdmin}/products/`);
 }
