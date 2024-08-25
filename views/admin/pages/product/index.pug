@@ -3,11 +3,13 @@ include ../../mixins/statusFilter.pug
 include ../../mixins/search.pug
 include ../../mixins/change-multi.pug
 include ../../mixins/alert-success.pug
+include ../../mixins/alert-error.pug
 
 
 block main
 
-    +alert-success(500)
+    +alert-success(5000)
+    +alert-error(5000)
     
 
     h1 Danh sách sản phẩm
@@ -90,7 +92,10 @@ block main
                                 data-status = product.status
                             ) Dừng hoạt động
                     td
-                        button(class="btn btn-warning btn-sm") Sửa
+                        a(
+                            class="btn btn-warning btn-sm"
+                            href=`${prefixAdmin}/products/edit/${product.id}`
+                        ) Sửa
                         button(
                             class="btn btn-danger btn-sm ml-1"
                             data-id = product.id 

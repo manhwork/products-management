@@ -1,0 +1,131 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+
+
+block main 
+
+    +alert-error(5000)
+    +alert-success(5000)
+
+    h1(class="mb-4") Thay đổi sản phẩm
+
+    form(
+        action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+    ) 
+        div(class="form-group")
+            label(for="title") <strong>Tiêu đề</strong>
+            input(
+                type="text"
+                name="title"
+                id="title"
+                class="form-control"
+                placeholder="Tiêu đề sản phẩm"
+                value=product.title
+                required
+            )
+        div(class="form-group")
+            label(for="description")  <strong>Mô tả</strong>
+            textarea(
+                name="description" 
+                rows="5"
+                class="form-control"
+                id="description"
+                placeholder="Mô tả sản phẩm"
+                value=product.description
+            ) #{product.description}
+        div(class="form-group")
+            label(for="price") <strong>Giá</strong>
+            input(
+                type="number"
+                name="price"
+                id="price"
+                class="form-control"
+                placeholder="Điền giá sản phẩm"
+                min=0
+                value=product.price
+            )
+        div(class="form-group")
+            label(for="discountPercentage") <strong>% Giảm giá</strong>
+            input(
+                type="number"
+                name="discountPercentage"
+                id="discountPercentage"
+                class="form-control"
+                placeholder="Điền phần trăm giảm giá"
+                min=0
+                value=product.discountPercentage
+            )
+        div(class="form-group")
+            label(for="stock") <strong>Số lượng</strong>
+            input(
+                type="number"
+                name="stock"
+                id="stock"
+                class="form-control"
+                placeholder="Điền số lượng"
+                min=0
+                value=product.stock
+            )
+        div(
+            class="form-group"
+            upload-input
+        )
+            label(for="thumbnail") <strong>Ảnh</strong>
+            input(
+                type="file"
+                name="thumbnail"
+                id="thumbnail"
+                class="form-control-file"
+                accept="image/*"
+                upload-input-image
+            )
+            img(
+                upload-input-preview 
+                src=`${product.thumbnail}`
+            )
+            span(
+                preview-hidden 
+                class="preview--button__hidden"
+            ) X
+        div(class="form-group")
+            label(for="position") <strong>Vị trí</strong>
+            input(
+                type="number"
+                name="position"
+                id="position"
+                class="form-control"
+                min=0
+                placeholder="Vị trí tự động tăng"
+                value=product.position
+            )
+        div(class="form-group form-check form-check-inline")    
+            input(
+                type="radio"
+                name="status"
+                id="statusActive"
+                class="form-check-input"
+                value="active"
+                checked = ( product.status == 'active' ? true : false )
+            )
+            label(for="active" class="form-check-label") <strong>Hoạt Động</strong>
+        div(class="form-group form-check form-check-inline")    
+            input(
+                type="radio"
+                name="status"
+                id="statusActive"
+                class="form-check-input"
+                value="inactive"
+                checked = ( product.status == 'inactive' ? true : false )
+            )
+            label(for="inactive" class="form-check-label") <strong>Dừng Hoạt Động</strong>
+        div(class="form-group")
+            button(
+                class="btn btn-primary"
+                type="submit"
+            ) Cập nhật 
+        script(src="/admin/js/script.js") 
+
+             

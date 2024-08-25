@@ -166,3 +166,70 @@ module.exports.createPOST = async (req, res) => {
 
     }
 }
+
+
+// [GET] /admin/products/edit 
+
+module.exports.edit = async (req, res) => {
+
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        }
+
+        const product = await Product.findOne(find);
+
+        res.render(
+            'admin/pages/product/edit',
+            {
+                product: product,
+            }
+        );
+    }
+    catch (error) {
+
+        req.flash('error', 'Vui lòng chọn lại sản phẩm cần sửa !')
+
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+
+}
+
+
+// [PATCH] /admin/products/edit 
+
+module.exports.editPatch = async (req, res) => {
+
+    console.log(req.body);
+
+    req.body.price = parseInt(req.body.price);
+
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+
+    req.body.stock = parseInt(req.body.stock);
+
+
+    if (req.body.position == "") {
+        const maxPosition = await Product.countDocuments({ deleted: false });
+        req.body.position = maxPosition + 1;
+    }
+    else {
+        req.body.position = parseInt(req.body.position);
+    }
+
+    if (req.file) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`
+    }
+
+    try {
+        await Product.updateOne({ _id: req.params.id }, req.body);
+
+        req.flash('success', 'Cập nhật sản phẩm thành công!')
+
+    } catch (error) {
+        req.flash('error', 'Cập nhật sản phẩm thất bại !')
+    }
+    
+    res.redirect(`back`);
+}
