@@ -216,36 +216,7 @@ header.header .inner-logo a:hover {
 
 
 
-/* Base styles for the alert */
-.alert {
-    padding: 15px;
-    background-color: #4CAF50; /* Green background for success */
-    color: white;
-    border-radius: 5px;
-    position: relative; /* Allow the close button to be positioned absolutely */
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-    opacity: 1; /* Fully visible */
-    transform: translateY(0); /* Initial position */
-}
 
-/* Close button styles */
-.alert span {
-    position: absolute;
-    top: 50%; /* Vertically center the close button */
-    right: 15px; /* Position close to the right edge */
-    transform: translateY(-50%); /* Adjust vertical positioning */
-    cursor: pointer; /* Change cursor to pointer when hovering */
-    font-weight: bold; /* Make the 'x' bold */
-    color: white; /* Ensure the 'x' matches the alert text color */
-    font-size: 18px; /* Adjust the size of the 'x' */
-}
-
-/* Hover effect for the close button */
-.alert span:hover {
-    color: #ffdddd; /* Lighten the color on hover */
-}
-
-/* Style to hide the alert */
 .alert-hidden {
     opacity: 0; /* Fade out */
     transform: translateY(-20px); /* Move up slightly */
@@ -259,6 +230,14 @@ header.header .inner-logo a:hover {
 
 .card .card-body .col-2 a {
     border: 1px solid #27a844;
+}
+
+span[close-notifycation] {
+    padding: 10px;
+    cursor: pointer;
+    background: #fff;
+    width: 20px;
+    height: 20px;
 }
 
 
@@ -277,5 +256,4 @@ span[preview-hidden].active {
     padding: 5px;
     background: #ddd;
     cursor: pointer;
-
 }

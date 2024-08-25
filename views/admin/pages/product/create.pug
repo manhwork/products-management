@@ -1,6 +1,13 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+
 
 block main 
+
+    +alert-error(5000)
+    +alert-success(5000)
+
     h1(class="mb-4") Thêm mới sản phẩm
 
     form(
@@ -95,7 +102,7 @@ block main
                 id="statusActive"
                 class="form-check-input"
                 value="active"
-                required
+                checked
             )
             label(for="active" class="form-check-label") <strong>Hoạt Động</strong>
         div(class="form-group form-check form-check-inline")    

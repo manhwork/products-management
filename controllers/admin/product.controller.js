@@ -129,15 +129,15 @@ module.exports.createPOST = async (req, res) => {
 
     if (req.body) {
 
-        if(req.body.price) {
+        if (req.body.price) {
             req.body.price = parseInt(req.body.price);
         }
 
-        if(req.body.discountPercentage ){
+        if (req.body.discountPercentage) {
             req.body.discountPercentage = parseInt(req.body.discountPercentage);
         }
 
-        if(req.body.stock) {
+        if (req.body.stock) {
             req.body.stock = parseInt(req.body.stock);
         }
 
@@ -160,7 +160,9 @@ module.exports.createPOST = async (req, res) => {
         const product = new Product(req.body);
         await product.save();
 
-        res.redirect(`${systemConfig.prefixAdmin}/products/`);
-    }
+        req.flash("success", `Tạo sản phẩm thành công !`);
 
+        res.redirect(`${systemConfig.prefixAdmin}/products/`);
+
+    }
 }
