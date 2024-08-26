@@ -92,6 +92,13 @@ block main
                                 data-status = product.status
                             ) Dừng hoạt động
                     td
+
+                        a(
+                            href=`${prefixAdmin}/products/detail/${product.id}`
+                            class="btn btn-secondary btn-sm mr-1"
+                        )   Chi tiết
+
+
                         a(
                             class="btn btn-warning btn-sm"
                             href=`${prefixAdmin}/products/edit/${product.id}`

@@ -201,7 +201,7 @@ module.exports.edit = async (req, res) => {
 
 module.exports.editPatch = async (req, res) => {
 
-    console.log(req.body);
+    // console.log(req.body);
 
     req.body.price = parseInt(req.body.price);
 
@@ -232,4 +232,32 @@ module.exports.editPatch = async (req, res) => {
     }
     
     res.redirect(`back`);
+}
+
+
+
+
+// [GET] /admin/products/detail 
+
+module.exports.detail = async (req, res) => {
+
+    try {
+        const find = {
+            deleted: false,
+            _id: req.params.id,
+        }
+
+        const product = await Product.findOne(find);
+
+        res.render(
+            'admin/pages/product/detail',
+            {
+                product: product,
+            }
+        );
+    }
+    catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+
 }
