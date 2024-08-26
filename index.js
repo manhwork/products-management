@@ -1,13 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
-require('dotenv').config();
 const flash = require('express-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
-
+require('dotenv').config();
+const database = require('./config/database');
 
 
 const app = express()
@@ -17,7 +16,6 @@ app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 
 
-const database = require('./config/database');
 
 const systemConfig = require('./config/system');
 app.use(methodOverride('_method'));

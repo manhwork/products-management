@@ -35,7 +35,7 @@ module.exports.detail = async (req, res) => {
             {
                 pageTitle: req.params.slug,
                 product: product,
-                status : 'active'
+                status : 'active' 
             }
         )
     }
