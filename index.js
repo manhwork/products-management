@@ -34,10 +34,12 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 const port = process.env.PORT;
 
-app.set('views', './views');
+console.log(__dirname);
+
+app.set('views', `${__dirname}/views`);
 app.set("view engine", "pug");
 
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}/public`));
 
 route(app);
 routeAdmin(app);
