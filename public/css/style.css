@@ -5,6 +5,12 @@ Basic reset for margin and padding
     box-sizing: border-box;
 }
 
+
+a {
+    text-decoration: none;
+    
+}
+
 /* Style for the header */
 header.header {
     background-color: #f8f9fa; /* Light background color for the header */

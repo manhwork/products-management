@@ -7,12 +7,14 @@ block main
 
         .product-list
             each product in products
-                .product-item
-                    img.product-image(src=product.thumbnail alt=product.title)
-                    
-                    .product-details
-                        h2.product-title #{product.title}
-                        
+                a(
+                    href=`/products/${product.slug}`
+                )
+                    .product-item
+                        img.product-image(src=product.thumbnail alt=product.title)
+                        .product-details
+                            h2.product-title #{product.title}
+                            
                         .price-box
                             if product.discountPercentage > 0
                                 span.new-price Giá mới: $#{product.priceNew.toFixed(2)}
