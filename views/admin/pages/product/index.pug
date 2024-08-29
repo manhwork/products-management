@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/change-multi.pug
 include ../../mixins/alert-success.pug
 include ../../mixins/alert-error.pug
+include ../../mixins/sort.pug
 
 
 block main
@@ -25,17 +26,20 @@ block main
 
     .card.mb-3 
         .card-header Danh sách 
-            .card-body 
-                .row 
-                    .col-10 
-                        +change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
-                    .col-2
-                        a(
-                            href=`${prefixAdmin}/products/create`
-                            class="btn btn-outline-success"
-                        ) + Thêm mới
+        .card-body 
+            .row 
+                .col-10 
+                    +change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                .col-2
+                    a(
+                        href=`${prefixAdmin}/products/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
 
-
+    div(class="card mb-3")
+        div(class="card-header") Sắp xếp 
+        div(class="card-body")
+            +sort()
 
     table.table.table-hover.table-sm
         thead

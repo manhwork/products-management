@@ -4,7 +4,7 @@ mixin change-multi(path)
         method="post"
         form-change-multi
     )
-        .d-flex.align-items-start 
+        div(class="col-4")
             .form-group 
                 select(name="type" class = "form-control")
                     option(disabled selected) -- Chọn hành động --

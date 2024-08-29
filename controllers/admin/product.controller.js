@@ -36,8 +36,20 @@ module.exports.index = async (req, res) => {
         currentPage: 1,
     }, req, countProducts);
 
+    // Sort
+    const selectSort = {};
+    if (req.query.sortKey && req.query.sortValue) {
+        selectSort[req.query.sortKey] = req.query.sortValue;
+        // Thêm vào object selectSort
+    }
+    else {
+        selectSort.position = -1;
+    }
+    // End Sort
+
+
     const products = await Product.find(find)
-        .sort({ position: -1 })
+        .sort(selectSort)
         .limit(objectPagiantion.productsLimit)
         .skip(objectPagiantion.productsSkip);
     // End Pagination
@@ -230,7 +242,7 @@ module.exports.editPatch = async (req, res) => {
     } catch (error) {
         req.flash('error', 'Cập nhật sản phẩm thất bại !')
     }
-    
+
     res.redirect(`back`);
 }
 
