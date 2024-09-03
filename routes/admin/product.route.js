@@ -32,6 +32,7 @@ router.get('/edit/:id', controller.edit);
 router.patch(
     '/edit/:id',
     upload.single('thumbnail'),
+    uploadCloudMiddleware.Upload,
     productValidate.createPost,
     controller.editPatch
 );

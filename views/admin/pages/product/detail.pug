@@ -26,10 +26,10 @@ block main
 
 
     div(class="mb-4") Vị trí : 
-        b #{product.posision} 
+        b #{product.position} 
 
     div(class="mb-4") Mô tả : !{product.description}
-
+    //- !{} là để ko hiển thị code 
 
     a(
         href=`${prefixAdmin}/products/edit/${product.id}`
