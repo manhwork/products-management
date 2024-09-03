@@ -1,16 +1,25 @@
 const ProductCategory = require("../../models/products-category.model");
 const systemConfig = require("../../config/system");
+const statusFilterHelper = require("../../helpers/statusFilter");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
   const find = {
     deleted: false,
   };
+  // Status fillter
+  const statusFilter = statusFilterHelper(req);
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+  // End Status fillter
+
   const records = await ProductCategory.find(find).sort({ position: -1 });
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Products Category",
     records: records,
+    statusFilter: statusFilter,
   });
 };
 

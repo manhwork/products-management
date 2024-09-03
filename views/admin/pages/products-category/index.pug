@@ -13,21 +13,21 @@ block main
 
     h1 Danh mục sản phẩm 
 
-    //- .card.mb-3
-    //-     .card-header Bộ lọc và tìm kiếm
-    //-     .card-body
-    //-         .row 
-    //-             .col-6 
-    //-                 +status-filter(statusFilter)
-    //-             .col-6 
-    //-                 +search(keyword)
+    .card.mb-3
+        .card-header Bộ lọc và tìm kiếm
+        .card-body
+            .row 
+                .col-6 
+                    +status-filter(statusFilter)
+                .col-6 
+                    //- +search(keyword)
 
     .card.mb-3 
         .card-header Danh sách 
         .card-body 
             .row 
                 .col-10 
-                    +change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
+                    //- +change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
                 .col-2
                     a(
                         href=`${prefixAdmin}/products-category/create`
@@ -107,3 +107,4 @@ block main
                             data-id = product.id 
                             button-delete
                         ) Xóa
+    script(src="/admin/js/products-category.js")                          
