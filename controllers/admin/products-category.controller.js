@@ -1,7 +1,7 @@
 const ProductCategory = require("../../models/products-category.model");
 const systemConfig = require("../../config/system");
 const statusFilterHelper = require("../../helpers/statusFilter");
-
+const searchHelper = require("../../helpers/search");
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
   const find = {
@@ -13,6 +13,13 @@ module.exports.index = async (req, res) => {
     find.status = req.query.status;
   }
   // End Status fillter
+
+  // Search
+  const objectSearch = searchHelper(req);
+  if (req.query.keyword) {
+    find.title = objectSearch.regex;
+  }
+  // End Search
 
   const records = await ProductCategory.find(find).sort({ position: -1 });
 
