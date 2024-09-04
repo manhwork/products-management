@@ -60,3 +60,57 @@ module.exports.createPOST = async (req, res) => {
 
   res.redirect(`${systemConfig.prefixAdmin}/products-category/`);
 };
+
+// [PATCH] /admin/products-category/
+
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+
+  switch (type) {
+    case "active":
+      await ProductCategory.updateMany(
+        { _id: { $in: ids } },
+        { status: "active" }
+      );
+      req.flash(
+        "success",
+        `Cập nhật trạng thái hoạt động thành công ${ids.length} sản phẩm !`
+      );
+      break;
+    case "inactive":
+      await ProductCategory.updateMany(
+        { _id: { $in: ids } },
+        { status: "inactive" }
+      );
+      req.flash(
+        "success",
+        `Cập nhật trạng thái dừng hoạt động thành công ${ids.length} sản phẩm !`
+      );
+      break;
+    case "delete":
+      await ProductCategory.updateMany(
+        { _id: { $in: ids } },
+        {
+          deleted: true,
+          deletedAt: new Date(),
+        }
+      );
+      req.flash("success", `Xoá thành công ${ids.length} sản phẩm !`);
+      break;
+    case "change-position":
+      ids.forEach(async (element) => {
+        const [id, position] = element.split("-");
+        await ProductCategory.updateOne({ _id: id }, { position: position });
+      });
+      req.flash(
+        "success",
+        `Cập nhật thành công vị trí ${ids.length} sản phẩm !`
+      );
+      break;
+    default:
+      break;
+  }
+
+  res.redirect("back");
+};
