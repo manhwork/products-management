@@ -110,3 +110,25 @@ if (formChangeMulti) {
   });
 }
 // End Change multi
+
+// Delete Item
+const buttonDelete = document.querySelectorAll("button[button-delete]");
+
+if (buttonDelete.length > 0) {
+  buttonDelete.forEach((button) => {
+    button.addEventListener("click", () => {
+      const deleteConfirm = confirm("Bạn có chắc muốn danh mục này chứ ?");
+      if (deleteConfirm) {
+        const id = button.getAttribute("data-id");
+        const formDeleteItem = document.querySelector("#form-delete-item");
+
+        const path = formDeleteItem.getAttribute("data-path");
+        const action = path + "/" + id + "?_method=DELETE";
+
+        formDeleteItem.action = action;
+        formDeleteItem.submit();
+      }
+    });
+  });
+}
+// End Delete Item

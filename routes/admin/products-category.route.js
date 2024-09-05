@@ -23,4 +23,6 @@ router.post(
 
 router.patch("/change-multi", controller.changeMulti);
 
+router.delete("/delete/:id", controller.deleteItem);
+
 module.exports = router;
