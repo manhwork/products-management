@@ -33,8 +33,33 @@ module.exports.index = async (req, res) => {
 // [GET] /admin/products-category/create
 
 module.exports.create = async (req, res) => {
+  let find = {
+    deleted: false,
+  };
+
+  function phanCap(arr, parentId = "") {
+    const tree = [];
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const childrent = phanCap(arr, item.id);
+        if (childrent.length > 0) {
+          newItem.childrent = childrent;
+        }
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  }
+
+  const records = await ProductCategory.find(find);
+  const newRecords = phanCap(records);
+  console.log(newRecords);
+  // console.log(records);
+
   res.render("admin/pages/products-category/create", {
     pageTitle: "Products Category Create",
+    records: records,
   });
 };
 

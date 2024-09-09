@@ -27,13 +27,17 @@ block main
             )
         div(class="form-group")
             label(for="parent_id") <strong>Danh mục sản phẩm cha</strong>
-            input(
-                type="text"
-                name="parent_id"
-                id="parent_id"
-                class="form-control"
-                placeholder="Danh mục sản phẩm cha"
-            )
+            //- input(
+            //-     type="text"
+            //-     name="parent_id"
+            //-     id="parent_id"
+            //-     class="form-control"
+            //-     placeholder="Danh mục sản phẩm cha"
+            //- )
+            select(class="form-control" name="parent_id" id="parent_id")
+                option(value="" selected ) -- Chọn danh mục cha -- 
+                each item in records 
+                    option(value=item.id) #{item.title} 
         div(class="form-group")
             label(for="description")  <strong>Mô tả</strong>
             textarea(
