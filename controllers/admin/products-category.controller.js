@@ -2,6 +2,8 @@ const ProductCategory = require("../../models/products-category.model");
 const systemConfig = require("../../config/system");
 const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
+const phanCap = require("../../helpers/phanCap");
+
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
     const find = {
@@ -21,11 +23,15 @@ module.exports.index = async (req, res) => {
     }
     // End Search
 
-    const records = await ProductCategory.find(find).sort({ position: -1 });
+    // Phân cấp danh mục
+
+    const records = await ProductCategory.find(find);
+    const newRecords = phanCap(records);
+    // End Phân cấp danh mục
 
     res.render("admin/pages/products-category/index", {
         pageTitle: "Products Category",
-        records: records,
+        records: newRecords,
         statusFilter: statusFilter,
     });
 };
@@ -37,26 +43,15 @@ module.exports.create = async (req, res) => {
         deleted: false,
     };
 
-    function phanCap(arr, parentId = "") {
-        const tree = [];
-        arr.forEach((item) => {
-            if (item.parent_id === parentId) {
-                const newItem = item;
-                const childrent = phanCap(arr, item.id);
-                if (childrent.length > 0) {
-                    newItem.childrent = childrent;
-                }
-                tree.push(newItem);
-            }
-        });
-        return tree;
-    }
+    // Phân cấp danh mục
+    // console.log(tree);
 
     const records = await ProductCategory.find(find);
     const newRecords = phanCap(records);
     // console.log(newRecords);
     // console.log(records);
 
+    // End Phân cấp danh mục
     res.render("admin/pages/products-category/create", {
         pageTitle: "Products Category Create",
         records: newRecords,

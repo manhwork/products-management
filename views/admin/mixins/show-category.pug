@@ -1,0 +1,63 @@
+mixin show-category(records, level = 1)
+    each item, index in records
+        -const prefix = Array(level + 1).join("-- ");
+            tr
+                td 
+                    input(
+                        type="checkbox" 
+                        name="id"
+                        value = item.id 
+                    )
+                td #{++count}
+                td
+                    img(
+                        src=item.thumbnail
+                        alt=item.title
+                        width="100px"
+                        height="auto"
+                    )
+                td #{prefix}#{item.title}
+                td 
+                    input(
+                        type="number"
+                        value=item.position 
+                        style="width:60px"
+                        min=1
+                        name="position"
+                    )
+                td
+                    if item.status === 'active'
+                        button(
+                            class="badge badge-success"
+                            button-change-status 
+                            data-id = item.id 
+                            data-status = item.status 
+                        ) Hoạt động
+                    else
+                        button(
+                            class="badge badge-danger"
+                            button-change-status 
+                            data-id = item.id 
+                            data-status = item.status
+                        ) Dừng hoạt động
+                td
+
+                    a(
+                        href=`${prefixAdmin}/products-category/detail/${item.id}`
+                        class="btn btn-secondary btn-sm mr-1"
+                    )   Chi tiết
+
+
+                    a(
+                        class="btn btn-warning btn-sm"
+                        href=`${prefixAdmin}/products-category/edit/${item.id}`
+                    ) Sửa
+                    button(
+                        class="btn btn-danger btn-sm ml-1"
+                        data-id = item.id 
+                        button-delete
+                    ) Xóa
+        if(item.childrent && item.childrent.length > 0)
+            + show-category(item.childrent,level + 1)
+
+
