@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert-error.pug
 include ../../mixins/alert-success.pug
+include ../../mixins/select.pug
 
 
 block main 
@@ -36,8 +37,8 @@ block main
             //- )
             select(class="form-control" name="parent_id" id="parent_id")
                 option(value="" selected ) -- Chọn danh mục cha -- 
-                each item in records 
-                    option(value=item.id) #{item.title} 
+                if(records)
+                    +select(records)                
         div(class="form-group")
             label(for="description")  <strong>Mô tả</strong>
             textarea(

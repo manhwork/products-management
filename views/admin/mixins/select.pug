@@ -1,0 +1,6 @@
+mixin select(records,level = 1 )
+    each item in records 
+        - const prefix = Array(level + 1).join("-- ");
+        option(value=item.id) #{prefix}#{item.title}
+        if(item.childrent && item.childrent.length > 0)
+            +select(item.childrent, level + 1)
