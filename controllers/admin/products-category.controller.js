@@ -201,3 +201,36 @@ module.exports.editPatch = async (req, res) => {
 
     res.redirect(`back`);
 };
+
+// [GET] /admin/products-category/detail/:id
+
+module.exports.detail = async (req, res) => {
+    try {
+        find = {
+            deleted: false,
+        };
+
+        const records = await ProductCategory.find(find);
+
+        const data = await ProductCategory.findOne({
+            deleted: false,
+            _id: req.params.id,
+        });
+
+        if (records.length > 0) {
+            for (let item of records) {
+                if (req.params.id == item.id) {
+                    data.titleParent = item.title;
+                    break;
+                }
+            }
+        }
+
+        res.render("admin/pages/products-category/detail", {
+            data: data,
+            pageTitle: "detail",
+        });
+    } catch (error) {
+        res.redirect("back");
+    }
+};

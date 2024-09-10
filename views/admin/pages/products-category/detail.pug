@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+
+block main 
+
+    h1(class="mb-4") Chi tiết danh mục 
+    div(class="mb-4") Tiêu đề : #{data.title}
+    div(class="mb-4") Danh mục cha :  #{data.titleParent}
+    div(class="mb-4") Thumbnail : 
+        img(src=`${data.thumbnail}`, alt="", srcset="", style = "width : 100px")
+
+    div(class='mb-4') Trạng thái : 
+        if(data.status='active')
+            span(class="badge badge-success") Hoạt động 
+        else 
+            span(class="badge badge-danger") Dừng hoạt động
+
+
+    div(class="mb-4") Vị trí : 
+        b #{data.position} 
+
+    div(class="mb-4") Mô tả : !{data.description}
+    //- !{} là để ko hiển thị code 
+
+    a(
+        href=`${prefixAdmin}/products-category/edit/${data.id}`
+        class="btn btn-warning"
+    ) Chỉnh sửa
