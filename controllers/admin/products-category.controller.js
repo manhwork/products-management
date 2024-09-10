@@ -44,12 +44,9 @@ module.exports.create = async (req, res) => {
     };
 
     // Phân cấp danh mục
-    // console.log(tree);
 
     const records = await ProductCategory.find(find);
     const newRecords = phanCap(records);
-    // console.log(newRecords);
-    // console.log(records);
 
     // End Phân cấp danh mục
     res.render("admin/pages/products-category/create", {
@@ -152,4 +149,55 @@ module.exports.deleteItem = async (req, res) => {
     );
     req.flash("success", `Xoá thành công danh mục !`);
     res.redirect("back");
+};
+
+// [GET] /admin/products-category/edit/:id
+
+module.exports.edit = async (req, res) => {
+    let find = {
+        deleted: false,
+    };
+
+    // Phân cấp danh mục
+
+    const records = await ProductCategory.find(find);
+    const newRecords = phanCap(records);
+
+    const data = await ProductCategory.findOne({
+        deleted: false,
+        _id: req.params.id,
+    });
+
+    // End Phân cấp danh mục
+    res.render("admin/pages/products-category/edit", {
+        records: newRecords,
+        pageTitle: "Edit page",
+        data: data,
+    });
+};
+
+// [POST] /admin/products-category/edit/:id
+
+module.exports.editPatch = async (req, res) => {
+    if (req.body.position == "") {
+        // Tìm ra vị trí lớn nhất
+        const maxPosition = await ProductCategory.find({
+            deleted: false,
+        })
+            .sort({ position: -1 })
+            .limit(1);
+        req.body.position = parseInt(maxPosition[0].position) + 1;
+    } else {
+        req.body.position = parseInt(req.body.position);
+    }
+
+    try {
+        await ProductCategory.updateOne({ _id: req.params.id }, req.body);
+
+        req.flash("success", "Cập nhật sản phẩm thành công!");
+    } catch (error) {
+        req.flash("error", "Cập nhật sản phẩm thất bại !");
+    }
+
+    res.redirect(`back`);
 };
