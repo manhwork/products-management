@@ -193,7 +193,7 @@ module.exports.createPOST = async (req, res) => {
         //     req.body.thumbnail = `/uploads/${req.file.filename}`
         // }
 
-        console.log(req.body);
+        // console.log(req.body);
 
         // const product = new Product(req.body);
         // await product.save();
