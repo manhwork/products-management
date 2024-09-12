@@ -195,8 +195,8 @@ module.exports.createPOST = async (req, res) => {
 
         // console.log(req.body);
 
-        // const product = new Product(req.body);
-        // await product.save();
+        const product = new Product(req.body);
+        await product.save();
 
         req.flash("success", `Tạo sản phẩm thành công !`);
 
@@ -213,10 +213,14 @@ module.exports.edit = async (req, res) => {
             _id: req.params.id,
         };
 
+        const records = await ProductCategory.find({ deleted: false });
+        const category = phanCap(records);
         const product = await Product.findOne(find);
 
         res.render("admin/pages/product/edit", {
             product: product,
+            category: category,
+            pageTitle: "Chỉnh sửa sản phẩm",
         });
     } catch (error) {
         req.flash("error", "Vui lòng chọn lại sản phẩm cần sửa !");
