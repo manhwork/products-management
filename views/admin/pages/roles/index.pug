@@ -1,0 +1,57 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/alert-error.pug
+
+
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+
+    h1 Nhóm quyền
+
+    .card.mb-3 
+        .card-header Danh sách 
+        .card-body 
+            .row 
+                .col-10 
+                    //- +change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
+                .col-2
+                    a(
+                        href=`${prefixAdmin}/roles/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới                           
+    table.table.table-hover.table-sm
+        thead
+            tr
+                th STT
+                th Nhóm quyền
+                th Mô tả ngắn
+                th Hành động
+        tbody
+            each item, index  in records 
+                tr
+                    td #{index + 1}
+                    td #{item.title}
+                    td #{item.description}
+                    td
+                        a(
+                            href=`${prefixAdmin}/roles/detail/${item.id}`
+                            class="btn btn-secondary btn-sm mr-1"
+                        )   Chi tiết
+                        a(
+                            class="btn btn-warning btn-sm"
+                            href=`${prefixAdmin}/roles/edit/${item.id}`
+                        ) Sửa
+                        button(
+                            class="btn btn-danger btn-sm ml-1"
+                            data-id = item  .id 
+                            button-delete
+                        ) Xóa
+                        
+    form(
+        action="" 
+        method="post"
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/products-category/delete`
+    ) 
+    script(src="/admin/js/products-category.js")      
