@@ -272,8 +272,13 @@ module.exports.detail = async (req, res) => {
         };
 
         const product = await Product.findOne(find);
-        // console.log(product);
-
+        const records = await ProductCategory.find({ deleted: false });
+        for (var item of records) {
+            if (item.id === product.product_category_id) {
+                product.parentTitle = item.title;
+                break;
+            }
+        }
         res.render("admin/pages/product/detail", {
             product: product,
         });

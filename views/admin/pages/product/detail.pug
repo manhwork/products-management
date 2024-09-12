@@ -4,7 +4,10 @@ include ../../mixins/alert-success.pug
 
 block main 
 
-    h1(class="mb-4") product.title 
+    h1(class="mb-4") #{product.title}
+
+    div(class="mb-4") Danh mục 
+        b #{product.parentTitle}
 
     div(class="mb-4") Giá 
         b #{product.price}$
