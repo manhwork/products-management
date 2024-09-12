@@ -193,10 +193,10 @@ module.exports.createPOST = async (req, res) => {
         //     req.body.thumbnail = `/uploads/${req.file.filename}`
         // }
 
-        // console.log(req.body);
+        console.log(req.body);
 
-        const product = new Product(req.body);
-        await product.save();
+        // const product = new Product(req.body);
+        // await product.save();
 
         req.flash("success", `Tạo sản phẩm thành công !`);
 

@@ -28,8 +28,8 @@ block main
             )
         div(class="form-group")
             label(for="product_category_id") <strong>Danh mục sản phẩm cha</strong>
-            select(class="form-control" name="product_category_id" id="product_category_id")
-                option(value="" selected ) -- Chọn danh mục -- 
+            select(class="form-control" name="product_category_id" id="product_category_id" required)
+                option(value="" disabled selected ) -- Chọn danh mục -- 
                 if(category)
                     +select(category) 
         div(class="form-group")
