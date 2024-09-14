@@ -79,3 +79,19 @@ module.exports.detail = async (req, res) => {
         data: data,
     });
 };
+
+// [DELETE] /admin/roles/delete/:id
+
+module.exports.delete = async (req, res) => {
+    try {
+        const data = await Role.findOne({
+            deleted: false,
+            _id: req.params.id,
+        });
+        await Role.updateOne({ _id: req.params.id }, { deleted: true });
+        req.flash("success", `Xoá thành nhóm quyền ${data.title} !`);
+    } catch (error) {
+        req.flash("error", `Xoá thất bại sản phẩm ${data.title} !`);
+    }
+    res.redirect(`back`);
+};

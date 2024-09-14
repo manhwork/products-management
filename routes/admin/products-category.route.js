@@ -27,6 +27,8 @@ router.delete("/delete/:id", controller.deleteItem);
 
 router.get("/edit/:id", controller.edit);
 
+router.patch("/change-status/:status/:id", controller.changeStatus);
+
 router.patch(
     "/edit/:id",
     upload.single("thumbnail"),

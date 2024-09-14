@@ -1,9 +1,10 @@
 mixin alert-error(time)
     - if(messages.error)
-        .messages.info 
+        div(class="messages info")
             div(
                 class="alert alert-danger"
                 show-alert
                 data-time = time
-            ) #{messages.error} <span close-notifycation>X</span> 
-            
+            ) #{messages.error} 
+                div(close-notifycation) X 
+    

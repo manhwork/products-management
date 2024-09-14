@@ -3,6 +3,7 @@ const systemConfig = require("../../config/system");
 const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const phanCap = require("../../helpers/phanCap");
+const { updateOne } = require("../../models/product.model");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
@@ -34,6 +35,27 @@ module.exports.index = async (req, res) => {
         records: newRecords,
         statusFilter: statusFilter,
     });
+};
+
+// [PATCH] /admin/products-category/:status/:id
+
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+    const data = await ProductCategory.findOne({ deleted: false, _id: id });
+    try {
+        await ProductCategory.updateOne({ _id: id }, { status: status });
+        req.flash(
+            "success",
+            `Thay đổi thành công trạng thái sản phẩm ${data.title}`
+        );
+    } catch (error) {
+        req.flash(
+            "success",
+            `Thay đổi thất bại trạng thái sản phẩm ${data.title}`
+        );
+    }
+    res.redirect(`back`);
 };
 
 // [GET] /admin/products-category/create

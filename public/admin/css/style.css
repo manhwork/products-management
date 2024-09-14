@@ -218,27 +218,28 @@ header.header .inner-logo a:hover {
 }
 
 .alert-hidden {
-    opacity: 0; /* Fade out */
-    transform: translateY(-20px); /* Move up slightly */
-    pointer-events: none; /* Prevent interaction */
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    /* display: none; */
 }
-
-.messages {
-    width: 35%;
+[show-alert] {
+    display: flex;
+    justify-content: space-between;
     font-weight: bold;
+    align-items: center;
 }
 
-.card .card-body .col-2 a {
-    border: 1px solid #27a844;
-}
-
-span[close-notifycation] {
-    padding: 10px;
+[close-notifycation] {
     cursor: pointer;
-    background: #fff;
-    width: 20px;
-    height: 20px;
-    background: #d4edda;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 img[upload-input-preview] {
