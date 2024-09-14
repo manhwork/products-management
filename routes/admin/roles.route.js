@@ -12,4 +12,6 @@ router.get("/edit/:id", controller.edit);
 
 router.patch("/edit/:id", controller.editPatch);
 
+router.get("/detail/:id", controller.detail);
+
 module.exports = router;

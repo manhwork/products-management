@@ -1,0 +1,15 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+
+block main 
+
+    h1(class="mb-4") Chi tiết nhóm quyền
+    div(class="mb-4") Tiêu đề : #{data.title}
+    div(class="mb-4") Mô tả : !{data.description}
+    //- !{} là để ko hiển thị code 
+
+    a(
+        href=`${prefixAdmin}/roles/edit/${data.id}`
+        class="btn btn-warning"
+    ) Chỉnh sửa 

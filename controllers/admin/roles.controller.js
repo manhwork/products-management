@@ -65,3 +65,17 @@ module.exports.editPatch = async (req, res) => {
     }
     res.redirect(`back`);
 };
+
+// [GET] /admin/roles/detail/:id
+
+module.exports.detail = async (req, res) => {
+    const data = await Role.findOne({
+        deleted: false,
+        _id: req.params.id,
+    });
+
+    res.render("admin/pages/roles/detail.pug", {
+        pageTitle: "Chi tiết phân quyền",
+        data: data,
+    });
+};
