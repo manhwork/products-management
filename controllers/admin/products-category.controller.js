@@ -176,7 +176,7 @@ module.exports.edit = async (req, res) => {
     });
 };
 
-// [POST] /admin/products-category/edit/:id
+// [PATCH] /admin/products-category/edit/:id
 
 module.exports.editPatch = async (req, res) => {
     if (req.body.position == "") {
