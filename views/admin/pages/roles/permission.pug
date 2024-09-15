@@ -33,7 +33,8 @@ block main
                 td data   
                 each item in records  
                     td(class="text-center")
-                        input(type="text" value=item.id)           
+                        input(type="text" value=item.id)  
+            // Danh mục sản phẩm         
             tr 
                 td(colspan=4) 
                     b Danh mục sản phẩm  
@@ -62,6 +63,73 @@ block main
                 each item in records 
                     td(class="text-center") 
                         input(type="checkbox")
+            // sản phẩm
+            tr 
+                td(colspan=4) 
+                    b Danh mục sản phẩm  
+            tr(data-name="products_view")
+                td Xem 
+                each item in records 
+                    td(class="text-center") 
+                        //- - const check = item.permissions.indexOf("products-category_view") !== -1 ;
+                        //- - const check = item.permissions.includes("products-category_view") ;
+                        input(
+                            type="checkbox"
+                            checked= check
+                        )
+            tr(data-name="products_create")
+                td Thêm mới 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            tr(data-name="products_edit")
+                td Chỉnh sửa 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            tr(data-name="products_delete")
+                td Xoá 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            // phân quyền
+            tr 
+                td(colspan=4) 
+                    b Danh mục sản phẩm  
+            tr(data-name="roles_view")
+                td Xem 
+                each item in records 
+                    td(class="text-center") 
+                        //- - const check = item.permissions.indexOf("products-category_view") !== -1 ;
+                        //- - const check = item.permissions.includes("products-category_view") ;
+                        input(
+                            type="checkbox"
+                            checked= check
+                        )
+            tr(data-name="roles_create")
+                td Thêm mới 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            tr(data-name="roles_edit")
+                td Chỉnh sửa 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            tr(data-name="roles_delete")
+                td Xoá 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+            tr(data-name="roles_permissions")
+                td Phân quyền 
+                each item in records 
+                    td(class="text-center") 
+                        input(type="checkbox")
+
+
+
+
     form(
         action=`${prefixAdmin}/roles/permission?_method=PATCH` 
         method="POST"

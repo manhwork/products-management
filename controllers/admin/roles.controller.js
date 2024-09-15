@@ -124,7 +124,7 @@ module.exports.permissionPatch = async (req, res) => {
                 }
             );
         }
-        req.flash("sccess", `Cập nhật phân quyền thành công !`);
+        req.flash("success", `Cập nhật phân quyền thành công !`);
     } catch (error) {
         req.flash("error", `Cập nhật phân qyền thất bại !`);
     }
