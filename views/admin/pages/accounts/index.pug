@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/alert-error.pug
+
+
+block main
+
+    +alert-success(5000)
+    +alert-error(5000)
+    
+
+    h1 Danh sách tài khoản
+
+
+    .card.mb-3 
+        .card-header Danh sách 
+        .card-body 
+            .row 
+                .col-10 
+                    //- +change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                .col-2
+                    a(
+                        href=`${prefixAdmin}/accounts/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
