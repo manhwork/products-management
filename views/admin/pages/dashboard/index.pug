@@ -1,4 +1,11 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/alert-error.pug
 
-block main 
-    h1 Trang tong quan 
+
+block main
+
+    +alert-success(5000)
+    +alert-error(5000)
+
+    h1 Trang tổng quan 

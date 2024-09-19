@@ -1,0 +1,39 @@
+extends ../../layouts/auth.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/alert-error.pug
+
+block main 
+
+    +alert-success(5000)
+    +alert-error(5000)
+    
+    div(class="container my-5")
+        div(class="row justify-content-center") 
+            div(class="col-8")
+                h1(class="text-center") Đăng nhập 
+                form(
+                    action="" 
+                    method="post"
+
+                ) 
+                    div(class="form-group")
+                        label(for="email") Email
+                        input(
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            type="email"
+                            required 
+                            placeholder="Nhập email"
+                        )
+                    div(class="form-group")
+                        label(for="password") Password
+                        input(
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            type="password"
+                            required 
+                            placeholder="Nhập password"
+                        )
+                    button(class="btn btn-primary btn-block" type="submit") Đăng nhập 
