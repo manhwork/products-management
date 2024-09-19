@@ -63,8 +63,10 @@ block main
             label(for="role_id") Phân quyền 
             select(name="role_id" id="role_id" class="form-control")
                 option(value="" disabled) -- Chọn --
-                option(value="") Quản trị viên 
-                option(value="") Quản lý nội dung 
+                each item in roles 
+                    option(value=item.id) #{item.title}
+
+
         div(class="form-group form-check form-check-inline")
             input(type="radio" name="status" class="form-check-input" id="statusActive" checked value="active")
             label(for="statusActive" class="form-check-label mr-4") Hoạt động 
