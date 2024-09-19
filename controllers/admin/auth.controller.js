@@ -34,3 +34,11 @@ module.exports.loginPost = async (req, res) => {
     req.flash("success", "Đăng nhập thành công !");
     res.redirect(`${systemConfig.prefixAdmin}/dashboard`);
 };
+
+// [GET] /admin/auth/logout
+
+module.exports.logout = async (req, res) => {
+    // Xóa token khi đăng xuất
+    res.clearCookie("token");
+    res.redirect(`${systemConfig.prefixAdmin}/auth/login`);
+};

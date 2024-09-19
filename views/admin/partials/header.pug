@@ -1,8 +1,10 @@
 header.header 
     .container-fluid 
         .row.alig-items-center  
-            .col3 
+            .col-11 
                 .inner-logo 
-                    a(href="/admin/dashboard") ADMIN 
+                    a(href=`${prefixAdmin}/dashboard`) ADMIN 
 
-            .col-9  
+            .col-1
+                .inner-logout 
+                    a(href=`${prefixAdmin}/auth/logout` class="btn btn-danger") Đăng xuất
