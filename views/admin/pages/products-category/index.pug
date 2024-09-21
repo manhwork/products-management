@@ -10,64 +10,69 @@ include ../../mixins/show-category.pug
 
 
 block main 
+    if(role.permissions.includes("products-category_view"))
+        div(class="row")
+            div(class="col-5")
+            div(class="col-7")
+                +alert-success(5000)
+                +alert-error(5000)
 
-    div(class="row")
-        div(class="col-5")
-        div(class="col-7")
-            +alert-success(5000)
-            +alert-error(5000)
+        h1 Danh mục sản phẩm 
 
-    h1 Danh mục sản phẩm 
+        .card.mb-3
+            .card-header Bộ lọc và tìm kiếm
+            .card-body
+                .row 
+                    .col-6 
+                        +status-filter(statusFilter)
+                    .col-6 
+                        +search(keyword)
+        if(role.permissions.includes("products-category_edit") || role.permissions.includes("products-category_create"))
+            .card.mb-3 
+                .card-header Danh sách 
+                .card-body 
+                    .row 
+                        .col-10 
+                            if(role.permissions.includes("products-category_edit"))
+                                +change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
+                        .col-2
+                            if(role.permissions.includes("products-category_create"))
+                                a(
+                                    href=`${prefixAdmin}/products-category/create`
+                                    class="btn btn-outline-success"
+                                ) + Thêm mới
 
-    .card.mb-3
-        .card-header Bộ lọc và tìm kiếm
-        .card-body
-            .row 
-                .col-6 
-                    +status-filter(statusFilter)
-                .col-6 
-                    +search(keyword)
-
-    .card.mb-3 
-        .card-header Danh sách 
-        .card-body 
-            .row 
-                .col-10 
-                    +change-multi(`${prefixAdmin}/products-category/change-multi?_method=PATCH`)
-                .col-2
-                    a(
-                        href=`${prefixAdmin}/products-category/create`
-                        class="btn btn-outline-success"
-                    ) + Thêm mới
-
-    //- div(class="card mb-3")
-    //-     div(class="card-header") Sắp xếp 
-    //-     div(class="card-body")
-    //-         +sort()
-    table.table.table-hover.table-sm
-        thead
-            tr
-                th 
-                    input(type="checkbox", name="checkall")
-                th STT
-                th Hình ảnh
-                th Tiêu đề
-                th Vị trí
-                th Trạng thái
-                th Hành động
-        tbody
-            - let count = 0;
-            +show-category(records, 1, "")
-    form(
-        action="" 
-        method="post"
-        id="form-delete-item"
-        data-path=`${prefixAdmin}/products-category/delete`
-    ) 
-    form(
-        action=""
-        method="POST"
-        id="form-change-status"
-        data-path=`${prefixAdmin}/products-category/change-status`
-    )
-    script(src="/admin/js/script.js")                          
+        //- div(class="card mb-3")
+        //-     div(class="card-header") Sắp xếp 
+        //-     div(class="card-body")
+        //-         +sort()
+        table.table.table-hover.table-sm
+            thead
+                tr
+                    th 
+                        input(type="checkbox", name="checkall")
+                    th STT
+                    th Hình ảnh
+                    th Tiêu đề
+                    th Vị trí
+                    if(role.permissions.includes("products-category_edit"))
+                        th Trạng thái   
+                    th Hành động
+            tbody
+                - let count = 0;
+                +show-category(records, 1, "")
+        form(
+            action="" 
+            method="post"
+            id="form-delete-item"
+            data-path=`${prefixAdmin}/products-category/delete`
+        ) 
+        form(
+            action=""
+            method="POST"
+            id="form-change-status"
+            data-path=`${prefixAdmin}/products-category/change-status`
+        )
+        script(src="/admin/js/script.js")  
+    else 
+        h1 Không có quyền xem danh mục sản phẩm                        

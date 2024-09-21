@@ -5,41 +5,42 @@ include ../../mixins/select.pug
 
 
 block main 
+    if(role.permissions.includes("roles_create"))
+        +alert-error(5000)
+        +alert-success(5000)
 
-    +alert-error(5000)
-    +alert-success(5000)
+        h1(class="mb-4") Thêm mới danh mục
 
-    h1(class="mb-4") Thêm mới danh mục
+        form(
+            action=`${prefixAdmin}/roles/create`
+            method="POST"
+        ) 
+            div(class="form-group")
+                label(for="title") <strong>Tiêu đề</strong>
+                input(
+                    type="text"
+                    name="title"
+                    id="title"
+                    class="form-control"
+                    placeholder="Tiêu đề nhóm quyền"
+                    required
+                )              
+            div(class="form-group")
+                label(for="description")  <strong>Mô tả</strong>
+                textarea(
+                    name="description" 
+                    rows="5"
+                    class="form-control"
+                    id="description"
+                    placeholder="Mô tả nhóm quyền"
+                )
+            div(class="form-group")
+                button(
+                    class="btn btn-primary"
+                    type="submit"
+                ) Tạo mới     
 
-    form(
-        action=`${prefixAdmin}/roles/create`
-        method="POST"
-    ) 
-        div(class="form-group")
-            label(for="title") <strong>Tiêu đề</strong>
-            input(
-                type="text"
-                name="title"
-                id="title"
-                class="form-control"
-                placeholder="Tiêu đề nhóm quyền"
-                required
-            )              
-        div(class="form-group")
-            label(for="description")  <strong>Mô tả</strong>
-            textarea(
-                name="description" 
-                rows="5"
-                class="form-control"
-                id="description"
-                placeholder="Mô tả nhóm quyền"
-            )
-        div(class="form-group")
-            button(
-                class="btn btn-primary"
-                type="submit"
-            ) Tạo mới     
-
-    script(src="/admin/js/script.js") 
-
-             
+        script(src="/admin/js/script.js") 
+    else 
+        h1 Bạn không có quyền tạo nhóm quyền 
+                

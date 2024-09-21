@@ -7,5 +7,11 @@ block main
 
     +alert-success(5000)
     +alert-error(5000)
+    if(role.permissions.length > 0)
+        h1 Trang tổng quan 
 
-    h1 Trang tổng quan 
+        div #{role.title}
+        div ----------------
+        div #{role.permissions}
+    else 
+        h1 Bạn không có quyền gì cả 
