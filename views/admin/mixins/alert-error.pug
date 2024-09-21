@@ -1,10 +1,13 @@
 mixin alert-error(time)
     - if(messages.error)
-        div(class="messages info")
-            div(
-                class="alert alert-danger"
-                show-alert
-                data-time = time
-            ) #{messages.error} 
-                div(close-notifycation) X 
-    
+        .row 
+            .col-6 
+            .col-6
+                div(class="messages info")
+                    div(
+                        class="alert alert-danger"
+                        show-alert
+                        data-time = time
+                    ) #{messages.error} 
+                        div(close-notifycation) X 
+            
