@@ -68,7 +68,7 @@ module.exports.edit = async (req, res) => {
             _id: req.params.id,
             deleted: false,
         });
-
+        // console.log(data);
         res.render("admin/pages/accounts/edit.pug", {
             pageTitle: "Sửa tài khoản",
             roles: roles,

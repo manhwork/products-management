@@ -70,9 +70,9 @@ block main
 
 
             div(class="form-group form-check form-check-inline")
-                input(type="radio" name="status" class="form-check-input" id="statusActive" checked=(data.status = "active" ? true : false) value="active")
+                input(type="radio" name="status" class="form-check-input" id="statusActive" value="active" checked=(data.status == "active" ? true : false) )
                 label(for="statusActive" class="form-check-label mr-4") Hoạt động 
-                input(type="radio" name="status" class="form-check-input" id="statusInactive" checked=(data.status = "inactive" ? true : false)  value="inactive")
+                input(type="radio" name="status" class="form-check-input" id="statusInactive"  value="inactive" checked=(data.status == "inactive" ? true : false) )
                 label(for="statusInactive" class="form-check-label"  ) Dừng hoạt động                 
 
             div(class="form-group")
