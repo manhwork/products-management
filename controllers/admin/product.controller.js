@@ -4,6 +4,7 @@ const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
+const Account = require("../../models/accounts.model");
 const phanCap = require("../../helpers/phanCap");
 
 // [GET] /admin/products
@@ -56,6 +57,18 @@ module.exports.index = async (req, res) => {
         .limit(objectPagiantion.productsLimit)
         .skip(objectPagiantion.productsSkip);
     // End Pagination
+
+    for (const item of products) {
+        if (item.createdBy) {
+            const user = await Account.findOne({
+                _id: item.createdBy.account_id,
+            });
+            if (user) {
+                item.fullName = user.fullName;
+                // console.log(user);
+            }
+        }
+    }
 
     res.render("admin/pages/product/index", {
         pageTitle: "Danh sách sản phẩm",
@@ -158,6 +171,7 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 
 module.exports.create = async (req, res) => {
+    console.log(res.locals.user);
     const find = {
         deleted: false,
     };
@@ -199,7 +213,11 @@ module.exports.createPOST = async (req, res) => {
         //     req.body.thumbnail = `/uploads/${req.file.filename}`
         // }
 
-        console.log(req.body);
+        const createdBy = {};
+        createdBy.account_id = res.locals.user.id;
+        // console.log(createdBy);
+        req.body.createdBy = createdBy;
+        // console.log(req.body);
 
         const product = new Product(req.body);
         await product.save();

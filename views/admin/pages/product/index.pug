@@ -5,6 +5,7 @@ include ../../mixins/change-multi.pug
 include ../../mixins/alert-success.pug
 include ../../mixins/alert-error.pug
 include ../../mixins/sort.pug
+include ../../mixins/moment.pug
 
 
 block main
@@ -56,6 +57,7 @@ block main
                     th Vị trí
                     if(role.permissions.includes("products_edit"))
                         th Trạng thái
+                    th Người tạo 
                     th Hành động
             tbody
                 each product, index in products
@@ -100,6 +102,10 @@ block main
                                         data-id = product.id 
                                         data-status = product.status
                                     ) Dừng hoạt động
+                        if(product.createdBy)
+                            td 
+                                p #{product.fullName}
+                                +formatDateTime(product.createdBy.createdAt)
                         td
 
                             a(

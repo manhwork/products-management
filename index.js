@@ -10,7 +10,8 @@ require("dotenv").config();
 const database = require("./config/database");
 
 const app = express();
-
+var moment = require("moment"); // require
+app.locals.moment = moment;
 app.use(cookieParser("CXHVASJFHGAISDJFHG"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
@@ -40,8 +41,8 @@ app.use(express.static(`${__dirname}/public`));
 // Tiny MCE
 // https://www.tiny.cloud/docs/tinymce/latest/expressjs-pm/
 app.use(
-  "/tinymce",
-  express.static(path.join(__dirname, "node_modules", "tinymce"))
+    "/tinymce",
+    express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 // End Tiny MCE
 
@@ -49,5 +50,5 @@ route(app);
 routeAdmin(app);
 
 app.listen(port, () => {
-  console.log(`Server is running! with ${port}`);
+    console.log(`Server is running! with ${port}`);
 });
