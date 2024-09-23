@@ -1,5 +1,6 @@
 const Role = require("../../models/roles.model");
 const systemConfig = require("../../config/system");
+const Account = require("../../models/accounts.model");
 // [GET] /admin/roles
 module.exports.index = async (req, res) => {
     const find = {
@@ -7,6 +8,18 @@ module.exports.index = async (req, res) => {
     };
 
     const records = await Role.find(find);
+
+    for (const item of records) {
+        if (item.createdBy) {
+            const user = await Account.findOne({
+                _id: item.createdBy.account_id,
+            });
+            if (user) {
+                item.fullName = user.fullName;
+                // console.log(user);
+            }
+        }
+    }
 
     res.render("admin/pages/roles/index.pug", {
         pageTitle: "Nhóm quyền",
@@ -24,6 +37,11 @@ module.exports.create = async (req, res) => {
 // [POST] /admin/roles/create
 
 module.exports.createPost = async (req, res) => {
+    const createdBy = {};
+    createdBy.account_id = res.locals.user.id;
+    // console.log(createdBy);
+    req.body.createdBy = createdBy;
+    // console.log(req.body);
     const record = new Role(req.body);
     await record.save();
 
@@ -88,7 +106,15 @@ module.exports.delete = async (req, res) => {
             deleted: false,
             _id: req.params.id,
         });
-        await Role.updateOne({ _id: req.params.id }, { deleted: true });
+        await Role.updateOne(
+            { _id: req.params.id },
+            {
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date(),
+                },
+            }
+        );
         req.flash("success", `Xoá thành nhóm quyền ${data.title} !`);
     } catch (error) {
         req.flash("error", `Xoá thất bại sản phẩm ${data.title} !`);

@@ -22,6 +22,8 @@ router.post(
 
 router.get("/edit/:id", controller.edit);
 
+router.delete("/delete/:id", controller.delete);
+
 router.patch(
     "/edit/:id",
     upload.single("avatar"),

@@ -34,6 +34,7 @@ block main
                     th Email
                     if(role.permissions.includes("accounts_edit"))
                         th Trạng thái
+                    th Người tạo 
                     th Hành động
             tbody
                 each item, index in records
@@ -65,6 +66,8 @@ block main
                                         data-id = item.id 
                                         data-status = item.status
                                     ) Dừng hoạt động
+                        td 
+                            p #{item.fullNameAcc}
                         td
 
                             a(

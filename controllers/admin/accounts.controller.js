@@ -16,6 +16,18 @@ module.exports.index = async (req, res) => {
         });
     }
 
+    for (const item of records) {
+        if (item.createdBy) {
+            const user = await Account.findOne({
+                _id: item.createdBy.account_id,
+            });
+            if (user) {
+                item.fullNameAcc = user.fullName;
+                // console.log(user);
+            }
+        }
+    }
+
     res.render("admin/pages/accounts/index.pug", {
         pageTitle: "Quản lý tài khoản",
         records: records,
@@ -46,6 +58,11 @@ module.exports.createPost = async (req, res) => {
             req.flash("success", `Email ${req.body.email} đã tồn tại !`);
             res.redirect("back");
         } else {
+            const createdBy = {};
+            createdBy.account_id = res.locals.user.id;
+            // console.log(createdBy);
+            req.body.createdBy = createdBy;
+            // console.log(req.body);
             const records = new Account(req.body);
             await records.save();
             req.flash("success", `Tạo tài khoản thành công !`);
@@ -110,5 +127,31 @@ module.exports.editPatch = async (req, res) => {
     } catch (error) {
         req.flash("error", `Cập nhật tài khoản ${req.body.email} thất bại !`);
         res.redirect("back");
+    }
+};
+
+// [DELETE] /admin/accounts/delete/:id
+module.exports.delete = async (req, res) => {
+    try {
+        const user = await Account.findOne({ _id: req.params.id });
+
+        await Account.updateOne(
+            {
+                _id: req.params.id,
+            },
+            {
+                deleted: true,
+                // deletedAt: new Date(),
+                deletedBy: {
+                    account_id: res.locals.user.id,
+                    deletedAt: new Date(),
+                },
+            }
+        );
+        req.flash("success", `Xóa thành công tài khoản ${user.email} `);
+        res.redirect("back");
+    } catch (error) {
+        req.flash("error", `Xóa không thành công tài khoản ${user.email}`);
+        res.redirect(`${systemConfig.prefixAdmin}/accounts`);
     }
 };
