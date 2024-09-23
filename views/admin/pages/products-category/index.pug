@@ -7,6 +7,7 @@ include ../../mixins/alert-error.pug
 include ../../mixins/sort.pug
 include ../../mixins/select.pug
 include ../../mixins/show-category.pug
+include ../../mixins/moment.pug
 
 
 block main 
@@ -56,11 +57,12 @@ block main
                     th Tiêu đề
                     th Vị trí
                     if(role.permissions.includes("products-category_edit"))
-                        th Trạng thái   
+                        th Trạng thái 
+                    th Người tạo 
                     th Hành động
             tbody
-                - let count = 0;
-                +show-category(records, 1, "")
+                - let count = 0
+                +show-category(records)
         form(
             action="" 
             method="post"

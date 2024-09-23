@@ -3,6 +3,7 @@ const systemConfig = require("../../config/system");
 const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const phanCap = require("../../helpers/phanCap");
+const Account = require("../../models/accounts.model");
 const { updateOne } = require("../../models/product.model");
 
 // [GET] /admin/products-category
@@ -27,7 +28,20 @@ module.exports.index = async (req, res) => {
     // Phân cấp danh mục
 
     const records = await ProductCategory.find(find);
+    for (const item of records) {
+        if (item.createdBy) {
+            const user = await Account.findOne({
+                _id: item.createdBy.account_id,
+            });
+            if (user) {
+                item.fullName = user.fullName;
+                // console.log(user);
+            }
+        }
+    }
+    let count = 0;
     const newRecords = phanCap(records);
+    count = 0;
     // End Phân cấp danh mục
 
     res.render("admin/pages/products-category/index", {
@@ -92,6 +106,12 @@ module.exports.createPOST = async (req, res) => {
         req.body.position = parseInt(req.body.position);
     }
 
+    const createdBy = {};
+    createdBy.account_id = res.locals.user.id;
+    // console.log(createdBy);
+    req.body.createdBy = createdBy;
+    // console.log(req.body);
+
     const record = new ProductCategory(req.body);
     await record.save();
 
@@ -132,7 +152,11 @@ module.exports.changeMulti = async (req, res) => {
                 { _id: { $in: ids } },
                 {
                     deleted: true,
-                    deletedAt: new Date(),
+                    // deletedAt: new Date(),
+                    deletedBy: {
+                        account_id: res.locals.user.id,
+                        deletedAt: new Date(),
+                    },
                 }
             );
             req.flash("success", `Xoá thành công ${ids.length} sản phẩm !`);
@@ -166,7 +190,11 @@ module.exports.deleteItem = async (req, res) => {
         { _id: id },
         {
             deleted: true,
-            deletedAt: new Date(),
+            // deletedAt: new Date(),
+            deletedBy: {
+                account_id: res.locals.user.id,
+                deletedAt: new Date(),
+            },
         }
     );
     req.flash("success", `Xoá thành công danh mục !`);

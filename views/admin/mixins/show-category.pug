@@ -42,6 +42,9 @@ mixin show-category(records, level = 1)
                                 data-status = item.status
                             ) Dừng hoạt động
                 td
+                    p #{item.fullName}
+                    +formatDateTime(item.createdBy.createdAt)
+                td
 
                     a(
                         href=`${prefixAdmin}/products-category/detail/${item.id}`
