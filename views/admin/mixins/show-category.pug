@@ -44,6 +44,9 @@ mixin show-category(records, level = 1)
                 td
                     p #{item.fullName}
                     +formatDateTime(item.createdBy.createdAt)
+                    if(item.updatedBy)
+                        p #{item.fullNameUpdate}
+                        +formatDate(item.updatedBy.)
                 td
 
                     a(

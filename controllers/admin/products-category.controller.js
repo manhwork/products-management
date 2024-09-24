@@ -4,7 +4,7 @@ const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const phanCap = require("../../helpers/phanCap");
 const Account = require("../../models/accounts.model");
-const { updateOne } = require("../../models/product.model");
+const { updateOne, findOne } = require("../../models/product.model");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
@@ -38,10 +38,16 @@ module.exports.index = async (req, res) => {
                 // console.log(user);
             }
         }
+        if (item.updatedBy.length > 0) {
+            const userUpdate = item.updatedBy[item.updatedBy.length - 1];
+            item.userUpdate = userUpdate;
+            const data = await findOne({
+                _id: item.userUpdate.account_id,
+            });
+            item.fullNameUpdate = data.fullName;
+        }
     }
-    let count = 0;
     const newRecords = phanCap(records);
-    count = 0;
     // End Phân cấp danh mục
 
     res.render("admin/pages/products-category/index", {
@@ -51,14 +57,20 @@ module.exports.index = async (req, res) => {
     });
 };
 
-// [PATCH] /admin/products-category/:status/:id
+// [PATCH] /admin/products-category/change-status/:status/:id
 
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
     const data = await ProductCategory.findOne({ deleted: false, _id: id });
+    const updateBy = {
+        account_id: res.locals.user.id,
+    };
     try {
-        await ProductCategory.updateOne({ _id: id }, { status: status });
+        await ProductCategory.updateOne(
+            { _id: id },
+            { status: status, $push: { updatedBy: updateBy } }
+        );
         req.flash(
             "success",
             `Thay đổi thành công trạng thái sản phẩm ${data.title}`
@@ -120,17 +132,19 @@ module.exports.createPOST = async (req, res) => {
     res.redirect(`${systemConfig.prefixAdmin}/products-category/`);
 };
 
-// [PATCH] /admin/products-category/
+// [PATCH] /admin/products-category/change-multi
 
 module.exports.changeMulti = async (req, res) => {
     const type = req.body.type;
     const ids = req.body.ids.split(", ");
-
+    const updateBy = {
+        accout_id: res.locals.user.id,
+    };
     switch (type) {
         case "active":
             await ProductCategory.updateMany(
                 { _id: { $in: ids } },
-                { status: "active" }
+                { status: "active", $push: { updatedBy: updateBy } }
             );
             req.flash(
                 "success",
@@ -140,7 +154,7 @@ module.exports.changeMulti = async (req, res) => {
         case "inactive":
             await ProductCategory.updateMany(
                 { _id: { $in: ids } },
-                { status: "inactive" }
+                { status: "inactive", $push: { updatedBy: updateBy } }
             );
             req.flash(
                 "success",
@@ -166,7 +180,7 @@ module.exports.changeMulti = async (req, res) => {
                 const [id, position] = element.split("-");
                 await ProductCategory.updateOne(
                     { _id: id },
-                    { position: position }
+                    { position: position, $push: { updatedBy: updateBy } }
                 );
             });
             req.flash(
@@ -242,7 +256,17 @@ module.exports.editPatch = async (req, res) => {
     }
 
     try {
-        await ProductCategory.updateOne({ _id: req.params.id }, req.body);
+        const updateBy = {
+            account_id: res.locals.user.id,
+        };
+
+        await ProductCategory.updateOne(
+            { _id: req.params.id },
+            {
+                ...req.body,
+                $push: { updatedBy: updateBy },
+            }
+        );
 
         req.flash("success", "Cập nhật sản phẩm thành công!");
     } catch (error) {

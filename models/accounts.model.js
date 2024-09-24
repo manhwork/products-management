@@ -33,6 +33,15 @@ const roleSchema = new mongoose.Schema(
             account_id: String,
             deletedAt: Date,
         },
+        updatedBy: [
+            {
+                account_id: String,
+                updatedAt: {
+                    type: Date,
+                    default: new Date(),
+                },
+            },
+        ],
     },
     {
         timestamps: {
