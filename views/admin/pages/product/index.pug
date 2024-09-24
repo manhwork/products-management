@@ -58,6 +58,7 @@ block main
                     if(role.permissions.includes("products_edit"))
                         th Trạng thái
                     th Người tạo 
+                    th Người cập nhật 
                     th Hành động
             tbody
                 each product, index in products
@@ -105,7 +106,14 @@ block main
                         if(product.createdBy)
                             td 
                                 p #{product.fullName}
-                                +formatDateTime(product.createdBy.createdAt)
+                                +formatDate(product.createdBy.createdAt)
+                                +formatTime(product.createdBy.createdAt)
+                        if(product.updatedBy) 
+                            td 
+                                if(product.fullNameUpdate)
+                                    p #{product.fullNameUpdate}
+                                    +formatDate(product.userUpdate.updatedAt)
+                                    +formatTime(product.userUpdate.updatedAt)
                         td
 
                             a(
