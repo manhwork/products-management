@@ -43,10 +43,13 @@ mixin show-category(records, level = 1)
                             ) Dừng hoạt động
                 td
                     p #{item.fullName}
-                    +formatDateTime(item.createdBy.createdAt)
+                    +formatDate(item.createdBy.createdAt) 
+                    +formatTime(item.createdBy.createdAt) 
+                td
                     if(item.updatedBy)
                         p #{item.fullNameUpdate}
-                        +formatDate(item.updatedBy.)
+                        +formatDate(item.updatedBy.updatedAt)
+                        +formatTime(item.updatedBy.updatedAt)
                 td
 
                     a(

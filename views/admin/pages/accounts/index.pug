@@ -35,6 +35,7 @@ block main
                     if(role.permissions.includes("accounts_edit"))
                         th Trạng thái
                     th Người tạo 
+                    th Người cập nhật
                     th Hành động
             tbody
                 each item, index in records
@@ -68,6 +69,8 @@ block main
                                     ) Dừng hoạt động
                         td 
                             p #{item.fullNameAcc}
+                        td 
+                            p #{item.fullNameUpdate}
                         td
 
                             a(

@@ -4,7 +4,6 @@ const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const phanCap = require("../../helpers/phanCap");
 const Account = require("../../models/accounts.model");
-const { updateOne, findOne } = require("../../models/product.model");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
@@ -41,7 +40,7 @@ module.exports.index = async (req, res) => {
         if (item.updatedBy.length > 0) {
             const userUpdate = item.updatedBy[item.updatedBy.length - 1];
             item.userUpdate = userUpdate;
-            const data = await findOne({
+            const data = await Account.findOne({
                 _id: item.userUpdate.account_id,
             });
             item.fullNameUpdate = data.fullName;

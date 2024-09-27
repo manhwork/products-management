@@ -6,17 +6,14 @@ include ../../mixins/select.pug
 
 block main 
     if(role.permissions.includes("roles_edit"))
-        div(class="row")
-            div(class="col-10")
-                +alert-error(5000)
-                +alert-success(5000)
+        +alert-error(5000)
+        +alert-success(5000)
 
         h1(class="mb-4") Chỉnh sửa nhóm quyền
 
         form(
             action=`${prefixAdmin}/roles/edit/${data.id}?_method=PATCH`
             method="POST"
-            enctype="multipart/form-data"
         ) 
             div(class="form-group")
                 label(for="title") <strong>Tiêu đề</strong>
@@ -26,8 +23,8 @@ block main
                     id="title"
                     class="form-control"
                     placeholder="Tiêu đề nhóm quyền"
-                    required
                     value=data.title
+                    required
                 )              
             div(class="form-group")
                 label(for="description")  <strong>Mô tả</strong>
@@ -37,13 +34,13 @@ block main
                     class="form-control"
                     id="description"
                     placeholder="Mô tả nhóm quyền"
-                    value=data.description
+                    value= data.description
                 ) #{data.description}
             div(class="form-group")
                 button(
                     class="btn btn-primary"
                     type="submit"
-                ) Cập nhật    
+                ) Cập nhật 
 
         script(src="/admin/js/script.js") 
     else 

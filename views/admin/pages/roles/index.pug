@@ -28,6 +28,7 @@ block main
                     th Nhóm quyền
                     th Mô tả ngắn
                     th Người tạo 
+                    th Người cập nhật
                     th Hành động
             tbody
                 each item, index  in records 
@@ -36,6 +37,7 @@ block main
                         td #{item.title}
                         td #{item.description}
                         td #{item.fullName}
+                        td #{item.fullNameUpdate}
                         td
                             a(
                                 href=`${prefixAdmin}/roles/detail/${item.id}`

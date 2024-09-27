@@ -26,6 +26,14 @@ module.exports.index = async (req, res) => {
                 // console.log(user);
             }
         }
+        if (item.updatedBy) {
+            const userUpdate = item.updatedBy[item.updatedBy.length - 1];
+            item.userUpdate = userUpdate;
+            const data = await Account.findOne({
+                id: item.updatedBy.account_id,
+            });
+            item.fullNameUpdate = data.fullName;
+        }
     }
 
     res.render("admin/pages/accounts/index.pug", {
@@ -117,7 +125,13 @@ module.exports.editPatch = async (req, res) => {
             } else {
                 req.body.password = md5(req.body.password);
             }
-            await Account.updateOne(find, req.body);
+            const updatedBy = {
+                account_id: res.locals.user.id,
+            };
+            await Account.updateOne(find, {
+                ...req.body,
+                $push: { updatedBy: updatedBy },
+            });
             req.flash(
                 "success",
                 `Cập nhật tài khoản ${req.body.email} thành công`

@@ -19,6 +19,12 @@ module.exports.index = async (req, res) => {
                 // console.log(user);
             }
         }
+        if (item.updatedBy.length > 0) {
+            const userUpdate = item.updatedBy[item.updatedBy.length - 1];
+            item.userUpdate = userUpdate;
+            const data = await Account.findOne({ _id: userUpdate.account_id });
+            item.fullNameUpdate = data.fullName;
+        }
     }
 
     res.render("admin/pages/roles/index.pug", {
@@ -56,12 +62,14 @@ module.exports.edit = async (req, res) => {
             deleted: false,
         };
 
-        const records = await Role.find(find);
+        // const records = await Role.find(find);
 
         const data = await Role.findOne({
             _id: req.params.id,
             deleted: false,
         });
+
+        // console.log(data);
 
         res.render("admin/pages/roles/edit.pug", {
             pageTitle: "Chỉnh sửa nhóm quyền",
@@ -76,7 +84,18 @@ module.exports.edit = async (req, res) => {
 
 module.exports.editPatch = async (req, res) => {
     try {
-        await Role.updateOne({ _id: req.params.id }, req.body);
+        const updatedBy = {
+            account_id: res.locals.user.id,
+        };
+
+        // console.log(req.body);
+        await Role.updateOne(
+            { _id: req.params.id },
+            {
+                ...req.body,
+                $push: { updatedBy: updatedBy },
+            }
+        );
         req.flash("success", "Cập nhật nhóm quyền thành công !");
     } catch (error) {
         req.flash("error", "Cập nhật sản phẩm thất bại !");
@@ -113,6 +132,7 @@ module.exports.delete = async (req, res) => {
                     account_id: res.locals.user.id,
                     deletedAt: new Date(),
                 },
+                deleted: true,
             }
         );
         req.flash("success", `Xoá thành nhóm quyền ${data.title} !`);
