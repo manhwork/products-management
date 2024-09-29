@@ -5,7 +5,7 @@ const rolesRoutes = require("./roles.route");
 const accountsRoutes = require("./accounts.route");
 const authRoutes = require("./auth.route");
 const myAccountRoutes = require("./my-account.route");
-const authRequire = require("../../validates/admin/auth.require.validate");
+const authRequire = require("../../middlewares/admin/auth.require.validate");
 const systemConfig = require("../../config/system");
 
 module.exports = (app) => {

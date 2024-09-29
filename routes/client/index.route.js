@@ -1,8 +1,12 @@
-const productsRoutes = require('./product.route');
-const homeRoutes = require('./home.route');
+const productsRoutes = require("./product.route");
+const homeRoutes = require("./home.route");
+const categoryMiddleWare = require("../../middlewares/client/category.middleware");
 
 module.exports = (app) => {
-    app.use('/',homeRoutes);
+    // ta có thể sử dụng để tất cả các routes đề có middleware đó
+    app.use(categoryMiddleWare.categoryMiddleWare);
 
-    app.use('/products', productsRoutes);
-}
+    app.use("/", homeRoutes);
+
+    app.use("/products", productsRoutes);
+};
