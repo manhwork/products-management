@@ -1,14 +1,11 @@
-Basic reset for margin and padding
-* {
+Basic reset for margin and padding * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
 a {
     text-decoration: none;
-    
 }
 
 /* Style for the header */
@@ -88,11 +85,15 @@ footer.footer {
     padding: 20px 0; /* Vertical padding */
 }
 
-.footer-about, .footer-links, .footer-social {
+.footer-about,
+.footer-links,
+.footer-social {
     margin-bottom: 20px; /* Space between sections */
 }
 
-.footer-about h3, .footer-links h3, .footer-social h3 {
+.footer-about h3,
+.footer-links h3,
+.footer-social h3 {
     font-size: 1.5rem; /* Larger font size for headings */
     margin-bottom: 10px; /* Space below headings */
 }
@@ -102,22 +103,26 @@ footer.footer {
     line-height: 1.5; /* Line height for readability */
 }
 
-.footer-links ul, .footer-social ul {
+.footer-links ul,
+.footer-social ul {
     list-style: none; /* Remove default list styling */
     padding: 0; /* Remove default padding */
 }
 
-.footer-links li, .footer-social li {
+.footer-links li,
+.footer-social li {
     margin-bottom: 10px; /* Space between list items */
 }
 
-.footer-links a, .footer-social a {
+.footer-links a,
+.footer-social a {
     color: #fff; /* White text color for links */
     text-decoration: none; /* Remove underline from links */
     transition: color 0.3s; /* Smooth color transition on hover */
 }
 
-.footer-links a:hover, .footer-social a:hover {
+.footer-links a:hover,
+.footer-social a:hover {
     color: #007bff; /* Change color on hover */
 }
 
@@ -293,4 +298,37 @@ footer.footer {
     color: #333;
 }
 
+/* sub-menu  */
+.sub-menu {
+    position: relative;
+    z-index: 999;
+}
 
+.sub-menu ul {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #eae9e9;
+    min-width: 180px;
+    display: none;
+}
+.sub-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.sub-menu:hover > ul {
+    display: block;
+}
+.sub-menu ul li {
+    position: relative;
+}
+.sub-menu ul li ul {
+    right: 100%;
+    top: 0;
+}
+.sub-menu ul li:hover > ul {
+    display: block;
+}
+/* End sub-menu  */
