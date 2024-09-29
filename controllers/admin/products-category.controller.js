@@ -27,23 +27,30 @@ module.exports.index = async (req, res) => {
     // Phân cấp danh mục
 
     const records = await ProductCategory.find(find);
-    for (const item of records) {
-        if (item.createdBy) {
-            const user = await Account.findOne({
-                _id: item.createdBy.account_id,
-            });
-            if (user) {
-                item.fullName = user.fullName;
-                // console.log(user);
+    // console.log(records);
+    if (records) {
+        for (const item of records) {
+            if (item.createdBy) {
+                const user = await Account.findOne({
+                    _id: item.createdBy.account_id,
+                });
+                if (user) {
+                    item.fullName = user.fullName;
+                    // console.log(user);
+                }
             }
-        }
-        if (item.updatedBy.length > 0) {
-            const userUpdate = item.updatedBy[item.updatedBy.length - 1];
-            item.userUpdate = userUpdate;
-            const data = await Account.findOne({
-                _id: item.userUpdate.account_id,
-            });
-            item.fullNameUpdate = data.fullName;
+            if (item.updatedBy) {
+                const userUpdate = item.updatedBy[item.updatedBy.length - 1];
+                item.userUpdate = userUpdate;
+                // console.log(item.userUpdate);
+                const data = await Account.findOne({
+                    _id: item.userUpdate.account_id,
+                });
+                // console.log(data);
+                if (data) {
+                    item.fullNameUpdate = data.fullName;
+                }
+            }
         }
     }
     const newRecords = phanCap(records);
@@ -62,13 +69,13 @@ module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
     const data = await ProductCategory.findOne({ deleted: false, _id: id });
-    const updateBy = {
+    const updatedBy = {
         account_id: res.locals.user.id,
     };
     try {
         await ProductCategory.updateOne(
             { _id: id },
-            { status: status, $push: { updatedBy: updateBy } }
+            { status: status, $push: { updatedBy: updatedBy } }
         );
         req.flash(
             "success",
@@ -106,13 +113,17 @@ module.exports.create = async (req, res) => {
 
 module.exports.createPOST = async (req, res) => {
     if (req.body.position == "") {
-        // Tìm ra vị trí lớn nhất
-        const maxPosition = await ProductCategory.find({
+        // // Tìm ra vị trí lớn nhất
+        // const maxPosition = await ProductCategory.find({
+        //     deleted: false,
+        // })
+        //     .sort({ position: -1 })
+        //     .limit(1);
+        // req.body.position = parseInt(maxPosition[0].position) + 1;
+        const countPosition = await ProductCategory.find({
             deleted: false,
-        })
-            .sort({ position: -1 })
-            .limit(1);
-        req.body.position = parseInt(maxPosition[0].position) + 1;
+        }).countDocuments();
+        req.body.position = parseInt(countPosition + 1);
     } else {
         req.body.position = parseInt(req.body.position);
     }
@@ -134,16 +145,17 @@ module.exports.createPOST = async (req, res) => {
 // [PATCH] /admin/products-category/change-multi
 
 module.exports.changeMulti = async (req, res) => {
+    // console.log(req.body);
     const type = req.body.type;
     const ids = req.body.ids.split(", ");
-    const updateBy = {
-        accout_id: res.locals.user.id,
+    const updatedBy = {
+        account_id: res.locals.user.id,
     };
     switch (type) {
         case "active":
             await ProductCategory.updateMany(
                 { _id: { $in: ids } },
-                { status: "active", $push: { updatedBy: updateBy } }
+                { status: "active", $push: { updatedBy: updatedBy } }
             );
             req.flash(
                 "success",
@@ -153,7 +165,7 @@ module.exports.changeMulti = async (req, res) => {
         case "inactive":
             await ProductCategory.updateMany(
                 { _id: { $in: ids } },
-                { status: "inactive", $push: { updatedBy: updateBy } }
+                { status: "inactive", $push: { updatedBy: updatedBy } }
             );
             req.flash(
                 "success",
@@ -179,7 +191,7 @@ module.exports.changeMulti = async (req, res) => {
                 const [id, position] = element.split("-");
                 await ProductCategory.updateOne(
                     { _id: id },
-                    { position: position, $push: { updatedBy: updateBy } }
+                    { position: position, $push: { updatedBy: updatedBy } }
                 );
             });
             req.flash(
@@ -255,7 +267,7 @@ module.exports.editPatch = async (req, res) => {
     }
 
     try {
-        const updateBy = {
+        const updatedBy = {
             account_id: res.locals.user.id,
         };
 
@@ -263,7 +275,7 @@ module.exports.editPatch = async (req, res) => {
             { _id: req.params.id },
             {
                 ...req.body,
-                $push: { updatedBy: updateBy },
+                $push: { updatedBy: updatedBy },
             }
         );
 

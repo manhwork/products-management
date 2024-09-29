@@ -54,6 +54,27 @@ module.exports.create = async (req, res) => {
     });
 };
 
+// [GET] /admin/accounts/detail/:id
+module.exports.detail = async (req, res) => {
+    const data = await Account.findOne({
+        deleted: false,
+        _id: req.params.id,
+    });
+
+    // console.log(data);
+
+    const role = await Role.findOne({
+        deleted: false,
+        _id: data.role_id,
+    });
+    data.titleRole = role.title;
+
+    res.render("admin/pages/accounts/detail.pug", {
+        pageTitle: "Chi tiet tài khoản",
+        data: data,
+    });
+};
+
 // [POST] /admin/accounts/create
 module.exports.createPost = async (req, res) => {
     try {
