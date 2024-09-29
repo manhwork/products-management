@@ -128,6 +128,7 @@ module.exports.editPatch = async (req, res) => {
             const updatedBy = {
                 account_id: res.locals.user.id,
             };
+            console.log(req.body);
             await Account.updateOne(find, {
                 ...req.body,
                 $push: { updatedBy: updatedBy },

@@ -4,6 +4,7 @@ const productsCategoryRoutes = require("./products-category.route");
 const rolesRoutes = require("./roles.route");
 const accountsRoutes = require("./accounts.route");
 const authRoutes = require("./auth.route");
+const myAccountRoutes = require("./my-account.route");
 const authRequire = require("../../validates/admin/auth.require.validate");
 const systemConfig = require("../../config/system");
 
@@ -24,4 +25,9 @@ module.exports = (app) => {
     app.use(path_admin + "/roles", authRequire.authRequire, rolesRoutes);
     app.use(path_admin + "/accounts", authRequire.authRequire, accountsRoutes);
     app.use(path_admin + "/auth", authRoutes);
+    app.use(
+        path_admin + "/my-account",
+        authRequire.authRequire,
+        myAccountRoutes
+    );
 };

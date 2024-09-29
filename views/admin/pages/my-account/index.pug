@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/select.pug
+
+
+block main 
+
+    +alert-error(5000)
+    +alert-success(5000)
+    h1(class="mb-4") Thông tin cá nhân 
+
+    img(src=user.avatar, alt="" width="100px" class="mb-4" )
+
+    div(class="mb-4") Họ tên : 
+        b #{user.fullName}
+    div(class="mb-4") Email : 
+        b #{user.email}
+    div(class="mb-4") Số điện thoại : 
+        b #{user.phone}
+    div.mb-4 
+        if user.status === 'active'
+            button(
+                class="badge badge-success"
+                button-change-status 
+                data-id = user.id 
+                data-status = user.status 
+            ) Hoạt động
+        else
+            button(
+                class="badge badge-danger"
+                button-change-status 
+                data-id = user.id 
+                data-status = user.status
+            ) Dừng hoạt động
+    .mb-4 Phân quyền : 
+        b #{role.title}
+
+
+    a(class="btn btn-primary" href=`${prefixAdmin}/my-account/edit`) Chỉnh sửa thông tin 
+
+    script(src="/admin/js/script.js")

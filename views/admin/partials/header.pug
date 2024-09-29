@@ -1,10 +1,10 @@
 header.header 
     .container-fluid 
         .row.alig-items-center  
-            .col-11 
+            .col-3 
                 .inner-logo 
                     a(href=`${prefixAdmin}/dashboard`) ADMIN 
-
-            .col-1
-                .inner-logout 
+            .col-9
+                .text-right
+                    a(href=`${prefixAdmin}/my-account` class="btn btn-primary mr-2") #{user.fullName} 
                     a(href=`${prefixAdmin}/auth/logout` class="btn btn-danger") Đăng xuất
