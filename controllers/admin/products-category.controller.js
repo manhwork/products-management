@@ -254,37 +254,39 @@ module.exports.edit = async (req, res) => {
 // [PATCH] /admin/products-category/edit/:id
 
 module.exports.editPatch = async (req, res) => {
-    if (req.body.position == "") {
-        // Tìm ra vị trí lớn nhất
-        const maxPosition = await ProductCategory.find({
-            deleted: false,
-        })
-            .sort({ position: -1 })
-            .limit(1);
-        req.body.position = parseInt(maxPosition[0].position) + 1;
+    // console.log(res.locals.role);
+    const permissions = res.locals.role.permissions;
+    if (permissions.includes("products-category_edit")) {
+        if (req.body.position == "") {
+            // Tìm ra vị trí lớn nhất
+            const maxPosition = await ProductCategory.find({
+                deleted: false,
+            })
+                .sort({ position: -1 })
+                .limit(1);
+            req.body.position = parseInt(maxPosition[0].position) + 1;
+        } else {
+            req.body.position = parseInt(req.body.position);
+        }
+        try {
+            const updatedBy = {
+                account_id: res.locals.user.id,
+            };
+            await ProductCategory.updateOne(
+                { _id: req.params.id },
+                {
+                    ...req.body,
+                    $push: { updatedBy: updatedBy },
+                }
+            );
+            req.flash("success", "Cập nhật sản phẩm thành công!");
+        } catch (error) {
+            req.flash("error", "Cập nhật sản phẩm thất bại !");
+        }
+        res.redirect(`back`);
     } else {
-        req.body.position = parseInt(req.body.position);
+        return;
     }
-
-    try {
-        const updatedBy = {
-            account_id: res.locals.user.id,
-        };
-
-        await ProductCategory.updateOne(
-            { _id: req.params.id },
-            {
-                ...req.body,
-                $push: { updatedBy: updatedBy },
-            }
-        );
-
-        req.flash("success", "Cập nhật sản phẩm thành công!");
-    } catch (error) {
-        req.flash("error", "Cập nhật sản phẩm thất bại !");
-    }
-
-    res.redirect(`back`);
 };
 
 // [GET] /admin/products-category/detail/:id
