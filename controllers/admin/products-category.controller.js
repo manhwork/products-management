@@ -256,6 +256,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     // console.log(res.locals.role);
     const permissions = res.locals.role.permissions;
+    // Làm tương tự với các phần khác
     if (permissions.includes("products-category_edit")) {
         if (req.body.position == "") {
             // Tìm ra vị trí lớn nhất

@@ -1,0 +1,19 @@
+mixin products-item(product)
+    a(
+        href=`/products/${product.slug}`
+    )
+        .product-item
+            .inner-img 
+                img.product-image(src=product.thumbnail alt=product.title)
+                if(product.featured == "1")
+                    .inner-featured Nổi bật 
+            .product-details
+                h2.product-title #{product.title}
+                
+            .price-box
+                if product.discountPercentage > 0
+                    span.new-price Giá mới: $#{product.priceNew.toFixed(2)}
+                    span.old-price Giá cũ: $#{product.price.toFixed(2)}
+                    span.new-label New!
+                else
+                    span.current-price Giá: $#{product.price}

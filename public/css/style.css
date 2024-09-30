@@ -183,6 +183,7 @@ footer.footer {
 }
 
 .product-item {
+    height: 100%;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -332,3 +333,19 @@ footer.footer {
     display: block;
 }
 /* End sub-menu  */
+
+.product-item .inner-img {
+    position: relative;
+}
+
+.product-item .inner-featured {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background: green;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+}

@@ -1,4 +1,11 @@
 extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
 
 block main 
     h1 Trang Chủ
+
+    .container
+        .product-header
+            h3.text-left.text-success Danh sách sản phẩm nổi bật
+
+        +product-grid(productsFeatured)
