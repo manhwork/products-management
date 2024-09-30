@@ -29,6 +29,7 @@ const productSchema = new mongoose.Schema(
                 default: new Date(),
             },
         },
+        featured: String,
         deletedBy: {
             account_id: String,
             deletedAt: Date,

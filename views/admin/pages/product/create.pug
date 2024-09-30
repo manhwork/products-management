@@ -32,6 +32,25 @@ block main
                     option(value="" disabled selected ) -- Chọn danh mục -- 
                     if(category)
                         +select(category) 
+            div(class="form-group form-check form-check-inline")    
+                input(
+                    type="radio"
+                    name="featured"
+                    id="featuredTrue"
+                    class="form-check-input"
+                    value="1"
+                )
+                label(for="featuredTrue" class="form-check-label") <strong>Nổi bật</strong>
+            div(class="form-group form-check form-check-inline")    
+                input(
+                    type="radio"
+                    name="featured"
+                    id="featuredFalse"
+                    class="form-check-input"
+                    value="0"
+                    checked = true
+                )
+                label(for="featuredFalse" class="form-check-label") <strong>Không</strong>
             div(class="form-group")
                 label(for="description")  <strong>Mô tả</strong>
                 textarea(

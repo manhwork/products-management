@@ -28,11 +28,31 @@ block main
                     required
                 )
             div(class="form-group")
-                label(for="product_category_id") <strong>Danh mục sản phẩm cha</strong>
+                label(for="product_category_id") <strong>Danh mục sản phẩm</strong>
                 select(class="form-control" name="product_category_id" id="product_category_id" required)
                     option(value="" disabled selected ) -- Chọn danh mục -- 
                     if(category)
                         +select(category, 1, product.product_category_id) 
+            div(class="form-group form-check form-check-inline")    
+                input(
+                    type="radio"
+                    name="featured"
+                    id="featuredTrue"
+                    class="form-check-input"
+                    value="1"
+                    checked = ( product.featured == '1' ? true : false )
+                )
+                label(for="featuredTrue" class="form-check-label") <strong>Nổi bật</strong>
+            div(class="form-group form-check form-check-inline")    
+                input(
+                    type="radio"
+                    name="featured"
+                    id="featuredFalse"
+                    class="form-check-input"
+                    value="0"
+                    checked = ( product.featured == '0' ? true : false )
+                )
+                label(for="featuredFalse" class="form-check-label") <strong>Không</strong>
             div(class="form-group")
                 label(for="description")  <strong>Mô tả</strong>
                 textarea(

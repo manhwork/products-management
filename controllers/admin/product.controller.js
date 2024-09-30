@@ -201,7 +201,7 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 
 module.exports.create = async (req, res) => {
-    console.log(res.locals.user);
+    // console.log(res.locals.user);
     const find = {
         deleted: false,
     };
@@ -309,7 +309,7 @@ module.exports.editPatch = async (req, res) => {
         const updatedBy = {
             account_id: res.locals.user.id,
         };
-
+        // console.log(req.body);
         await Product.updateOne(
             { _id: req.params.id },
             { ...req.body, $push: { updatedBy: updatedBy } }
