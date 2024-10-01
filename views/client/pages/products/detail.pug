@@ -2,22 +2,41 @@ extends ../../layouts/default.pug
 
 block main 
 
-    h1(class="mb-4") product.title 
 
-    div(class="mb-4") Giá 
-        b #{product.price}$
+    .product-detail 
+        .container.my-5
+            .row 
+                .col-6 
+                    .inner-thumb 
+                        img(src=`${product.thumbnail}`, alt="", srcset="")
+                .col-6 
+                    h1(class="inner-title") #{product.title}
+                    if(category)
+                        div(class="inner-category") 
+                            span Danh mục : 
+                            a(href=`/products/${category.slug}`) #{category.title}
 
-    div(class="mb-4") Giảm giá :
-        b #{product.discountPercentage}%
+                    if(product.priceNew)
+                        .inner-price-new #{product.priceNew}$ 
 
-    div(class="mb-4") Số lượng :
-        b #{product.stock}
+                    if(product.price)
+                        .inner-price-old #{product.price}$
 
-    div(class="mb-4") Thumbnail : 
-        img(src=`${product.thumbnail}`, alt="", srcset="", style = "width : 100px")
+                    if(product.discountPercentage)
+                        div(class="inner-percent") Giảm tới 
+                            span #{product.discountPercentage / 100 * product.price}$ 
 
+                    if(product.stock)
+                        .inner-stock Còn lại 
+                            span #{product.stock} sản phẩm 
 
-    div(class="mb-4") Vị trí : 
-        b product.posision 
+                    form(action=`cart/add/${product.id}`, method="post") 
+                        input(type="number", name="quantity" class="form-control mb-2" min="1" value=1 max=product.stock)
+                        button(type="submit" class="btn btn-success btn-block" ) Thêm vào giỏ hảng 
+        hr 
 
-    div(class="mb-4") Mô tả : #{product.description}
+        .container.my-5 
+            .row 
+                .col-12 
+                    h3.text-success.text-left Mô tả sản phẩm 
+                    .inner-desc !{product.description} 

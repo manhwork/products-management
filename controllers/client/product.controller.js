@@ -18,26 +18,39 @@ module.exports.index = async (req, res) => {
     });
 };
 
-// [GET] /products/:slug
+// [GET] /detail/:slugProduct
 
 module.exports.detail = async (req, res) => {
-    console.log(req.params.slug);
+    // console.log(req.params.slug);
 
     try {
         const find = {
             deleted: false,
-            slug: req.params.slug,
+            slug: req.params.slugProduct,
+            status: "active",
         };
 
-        const product = await Product.findOne(find);
+        let product = await Product.findOne(find);
 
-        res.render("client/pages/products/detail", {
-            pageTitle: req.params.slug,
-            product: product,
+        const category = await ProductsCategory.findOne({
+            deleted: false,
+            _id: product.product_category_id,
             status: "active",
         });
+
+        product.priceNew =
+            product.price * (1 - product.discountPercentage / 100);
+
+        // console.log(product);
+
+        res.render("client/pages/products/detail", {
+            pageTitle: req.params.slugProduct,
+            product: product,
+            category: category,
+        });
     } catch (error) {
-        res.redirect(`/products`);
+        // res.redirect(`/products`);
+        res.send("404");
     }
 };
 

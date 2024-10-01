@@ -349,3 +349,110 @@ footer.footer {
     padding: 3px 6px;
     border-radius: 4px;
 }
+
+/* Product detail specific styles */
+.product-detail {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.product-detail .inner-thumb img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-detail .inner-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.product-detail .inner-category {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.product-detail .inner-category span {
+    font-weight: bold;
+}
+
+.product-detail .inner-category a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.product-detail .inner-category a:hover {
+    text-decoration: underline;
+}
+
+.product-detail .inner-price-new {
+    font-size: 1.5rem;
+    color: #28a745;
+    margin-bottom: 0.5rem;
+}
+
+.product-detail .inner-price-old {
+    font-size: 1.2rem;
+    color: #6c757d;
+    text-decoration: line-through;
+    margin-bottom: 0.5rem;
+}
+
+.product-detail .inner-percent {
+    font-size: 1.2rem;
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+}
+
+.product-detail .inner-stock {
+    font-size: 1.1rem;
+    color: #17a2b8;
+    margin-bottom: 1rem;
+}
+
+.product-detail .inner-stock span {
+    font-weight: bold;
+}
+
+/* Form styles */
+.product-detail form {
+    margin-top: 1rem;
+}
+
+.product-detail input[type="number"].product-detail {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.product-detail button[type="submit"].product-detail {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.product-detail button[type="submit"].product-detail:hover {
+    background-color: #218838;
+}
+
+/* Description styles */
+.product-detail h3.text-success.text-left.product-detail {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.product-detail .inner-desc.product-detail {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #343a40;
+}
