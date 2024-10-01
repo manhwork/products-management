@@ -2,6 +2,6 @@ mixin sub-menu(records, path)
     ul 
         each item in records 
             li 
-                a(href=`${path}/${item.slug}`) #{item.title}
+                a(href=`/${path}/${item.slug}`) #{item.title}
                 if(item.childrent && item.childrent.length > 0)
                     + sub-menu(item.childrent, path)            
