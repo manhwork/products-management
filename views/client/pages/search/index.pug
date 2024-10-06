@@ -1,0 +1,9 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+
+block main 
+    .container
+        .product-header
+            h1.page-title #{pageTitle}
+
+        +product-grid(products)

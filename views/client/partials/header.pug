@@ -1,13 +1,19 @@
 include ../mixins/sub-menu.pug
 header.header 
-    .container 
+    .container-fluid 
         .row.align-items-center 
             .col-3 
                 .inner-logo 
                     a(href="/")
                         img(src="/images/logo.png", alt="", srcset="")
+            
+            .col-5 
+                .inner-form 
+                    form(action=`/search`, method="GET" class="form-group d-flex") 
+                        input(type="text" class="form-control" name="keyword" placeholder="Search..." value=keyword)
+                        button(type="submit" class="btn btn-primary") Tìm
 
-            .col-9 
+            .col-4 
                 .inner-menu 
                     ul 
                         li 
