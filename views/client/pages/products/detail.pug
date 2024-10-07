@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
 
 block main 
-
+    +alert-error(2000)
+    +alert-success(2000)
 
     .product-detail 
         .container.my-5
@@ -30,7 +33,7 @@ block main
                         .inner-stock Còn lại 
                             span #{product.stock} sản phẩm 
 
-                    form(action=`cart/add/${product.id}`, method="post") 
+                    form(action=`/cart/add/${product.id}`, method="post") 
                         input(type="number", name="quantity" class="form-control mb-2" min="1" value=1 max=product.stock)
                         button(type="submit" class="btn btn-success btn-block" ) Thêm vào giỏ hảng 
         hr 

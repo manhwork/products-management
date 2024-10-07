@@ -1,7 +1,12 @@
 extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
 
 block main 
+    +alert-error(2000)
+    +alert-success(2000)
+
     .container
         .product-header
             h1.page-title #{pageTitle}
