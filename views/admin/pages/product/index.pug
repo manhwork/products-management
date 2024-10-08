@@ -6,6 +6,7 @@ include ../../mixins/alert-success.pug
 include ../../mixins/alert-error.pug
 include ../../mixins/sort.pug
 include ../../mixins/moment.pug
+include ../../mixins/pagination.pug
 
 
 block main
@@ -134,31 +135,7 @@ block main
                                 ) Xóa
 
         //- Pagination 
-        nav(aria-label="Page navigation example")
-            ul(class="pagination")
-                if(objectPagiantion.currentPage > 1)
-                    li(class="page-item")
-                        button(
-                            class="page-link"
-                            pagination-index = objectPagiantion.currentPage - 1
-                        ) 
-                            span &laquo;
-
-                -for(var i = 1; i <= objectPagiantion.totalpages; i++)
-                    li(class = `page-item ${objectPagiantion.currentPage == i? 'active': ''}` )
-                        button(
-                            class="page-link"
-                            pagination-index = i
-                        ) #{i}
-                
-                if(objectPagiantion.currentPage < objectPagiantion.totalpages)
-                    li(class="page-item")
-                        button(
-                            class="page-link"
-                            pagination-index = objectPagiantion.currentPage + 1
-                        )  
-                            spann &raquo;
-
+        +pagination(objectPagiantion)
 
         form(
             action=""

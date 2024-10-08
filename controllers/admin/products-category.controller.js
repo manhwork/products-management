@@ -4,6 +4,7 @@ const statusFilterHelper = require("../../helpers/statusFilter");
 const searchHelper = require("../../helpers/search");
 const phanCap = require("../../helpers/phanCap");
 const Account = require("../../models/accounts.model");
+const paginationHelper = require("../../helpers/pagination");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
@@ -24,9 +25,28 @@ module.exports.index = async (req, res) => {
     }
     // End Search
 
+    // Pagination
+    const countProducts = await ProductCategory.countDocuments({
+        deleted: false,
+        status: "active",
+    });
+
+    const objectPagiantion = paginationHelper(
+        {
+            productsLimit: 5,
+            currentPage: 1,
+        },
+        req,
+        countProducts);
+    console.log(objectPagiantion);
+    // End Pagination
+
     // Phân cấp danh mục
 
-    const records = await ProductCategory.find(find);
+    const records = await ProductCategory
+        .find(find)
+        .skip(objectPagiantion.productsSkip)
+        .limit(objectPagiantion.productsLimit);
     // console.log(records);
     if (records) {
         for (const item of records) {
@@ -54,12 +74,14 @@ module.exports.index = async (req, res) => {
         }
     }
     const newRecords = phanCap(records);
+    // console.log(newRecords);
     // End Phân cấp danh mục
 
     res.render("admin/pages/products-category/index", {
         pageTitle: "Products Category",
         records: newRecords,
         statusFilter: statusFilter,
+        objectPagiantion: objectPagiantion
     });
 };
 

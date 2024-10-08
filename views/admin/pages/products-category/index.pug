@@ -8,6 +8,7 @@ include ../../mixins/sort.pug
 include ../../mixins/select.pug
 include ../../mixins/show-category.pug
 include ../../mixins/moment.pug
+include ../../mixins/pagination.pug
 
 
 block main 
@@ -64,6 +65,11 @@ block main
             tbody
                 - var count = 0
                 +show-category(records)
+        //- pagination
+        +pagination(objectPagiantion)
+        //- End pagination
+
+
         form(
             action="" 
             method="post"
