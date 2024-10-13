@@ -36,7 +36,7 @@ block main
                                         a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}  
                                     td #{item.productInfo.priceNew}$
                                     td 
-                                        input(type="number" name="quantity" value=item.quantity min=1 item-id style="width : 60px")
+                                        input(type="number" product-id=item.product_id name="quantity" value=item.quantity min=1 max=item.productInfo.stock item-id style="width : 60px")
                                     td #{item.productInfo.priceNew * item.quantity}$
                                     td 
                                         a(href=`/cart/delete/${item.product_id}` class="btn btn-danger ") Xoá 
