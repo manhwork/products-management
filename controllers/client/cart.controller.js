@@ -1,6 +1,6 @@
 const Cart = require("../../models/cart.model");
 const Product = require("../../models/product.model");
-
+const systemConfig = require("../../config/system");
 // [GET] /cart
 
 module.exports.index = async (req, res) => {
@@ -83,4 +83,33 @@ module.exports.addPost = async (req, res) => {
     req.flash("success", "Thêm giỏ hàng thành công !");
 
     res.redirect("back");
+};
+
+// [GET] /cart/delete/:id
+
+module.exports.delete = async (req, res) => {
+    try {
+        const cartId = req.cookies.cartId;
+        const cart = await Cart.findOne({
+            _id: cartId,
+        });
+        if (cart.products.length > 0) {
+            await Cart.updateOne(
+                {
+                    _id: cartId,
+                },
+                {
+                    $pull: { products: { product_id: req.params.id } },
+                }
+            );
+            req.flash("success", "Bạn đã xoá thành công sản phẩm !");
+            res.redirect(`back`);
+        } else {
+            req.flash("error", "Lỗi");
+            res.redirect(`/cart`);
+        }
+    } catch (error) {
+        req.flash("error", "Xoá thất bại sản phẩm ");
+        res.redirect(`/cart`);
+    }
 };
