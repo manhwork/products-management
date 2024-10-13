@@ -38,7 +38,7 @@ module.exports.index = async (req, res) => {
         },
         req,
         countProducts);
-    console.log(objectPagiantion);
+    // console.log(objectPagiantion);
     // End Pagination
 
     // Phân cấp danh mục

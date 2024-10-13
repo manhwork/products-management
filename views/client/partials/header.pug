@@ -22,6 +22,8 @@ header.header
                             a(href="/products") Sản phẩm
                             - const productPath = "products"
                             + sub-menu(layoutCategory, productPath)
+                        li 
+                            a(href="/cart") Giỏ hàng (#{(miniCart ? miniCart.totalQuantity : 0)}) 
 
                             //- ul 
                             //-     li 
