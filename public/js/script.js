@@ -15,7 +15,7 @@ if (showAlert) {
 // End Show Alert
 
 // Change quantity
-const quantityInput = document.querySelectorAll(`input[name="quantity"]`);
+const quantityInput = document.querySelectorAll(`input[product-id]`);
 if (quantityInput.length > 0) {
     quantityInput.forEach((item) => {
         item.addEventListener(`change`, (e) => {

@@ -1,0 +1,59 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+
+block main 
+    +alert-error(2000)
+    +alert-success(2000)
+
+
+
+    .container
+        .product-header.text-left
+            h1.page-title.text-primary #{pageTitle}
+
+        .row 
+            .col-12 
+                if(record.products.length > 0)
+                    table(class="table table-bodered")
+                        thead 
+                            tr 
+                                th STT 
+                                th Ảnh 
+                                th Tên 
+                                th Giá 
+                                th Số lượng 
+                                th Tổng tiền 
+                        tbody 
+                            each item, index in record.products 
+                                tr 
+                                    td #{index + 1}
+                                    td 
+                                        img(src= `${item.productInfo.thumbnail}`, alt=`${item.productInfo.title}` width="80px")
+                                    td #{item.productInfo.title}  
+                                    td #{item.productInfo.priceNew}$
+                                    td #{item.quantity}
+                                    td #{item.productInfo.priceNew * item.quantity}$
+                    
+                    h3(class="text-right") Tổng đơn hàng : #{record.totalPrice}$
+
+                    .row 
+                        .col-12 
+                            .card.p-4.my-4 
+                                form(
+                                    method="POST"
+                                    action="/checkout/order"
+                                )
+                                    div(class="form-group")
+                                        label(for="") Họ và tên 
+                                        input(type="text" placeholder="Nhập tên " name="fullName" class="form-control") 
+                                    div(class="form-group")
+                                        label(for="") Số điện thoại 
+                                        input(type="text" placeholder="Nhập số điện thoại " name="phone" class="form-control") 
+                                    div(class="form-group")
+                                        label(for="") Địa chỉ  
+                                        input(type="text" placeholder="Nhập địa chỉ " name="address" class="form-control") 
+                                    div(class="form-group")
+                                        button(type="submit", value="" class="btn btn-success") Đặt hàng 
+            
