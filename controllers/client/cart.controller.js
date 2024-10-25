@@ -39,10 +39,6 @@ module.exports.addPost = async (req, res) => {
     const productId = req.params.productId;
     const quantity = parseInt(req.body.quantity);
     const cartId = req.cookies.cartId;
-    // console.log(cartId);
-    // console.log(productId);
-    // console.log(quantity);
-
     const cart = await Cart.findOne({
         _id: cartId,
     });
@@ -51,7 +47,6 @@ module.exports.addPost = async (req, res) => {
     // console.log(cartProducts);
     if (cartProducts.includes(productId)) {
         const index = cartProducts.indexOf(productId);
-        // console.log(index);
         const newQuantity = quantity + parseInt(cart.products[index].quantity);
 
         await Cart.updateOne(
