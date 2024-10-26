@@ -4,12 +4,12 @@ const generate = require("../helpers/generate");
 
 mongoose.plugin(slug);
 
-const accountSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         fullName: String,
         email: String,
         password: String,
-        token: {
+        tokenUser: {
             type: String,
             default: generate.generateRandomString(20),
         },
@@ -50,6 +50,6 @@ const accountSchema = new mongoose.Schema(
     }
 );
 
-const Account = mongoose.model("Account", accountSchema, "accounts");
+const User = mongoose.model("User", userSchema, "users");
 
-module.exports = Account;
+module.exports = User;
