@@ -6,4 +6,6 @@ router.get("/", controller.index);
 
 router.post("/order", controller.orderPost);
 
+router.get("/order/success/:orderId", controller.orderSuccess);
+
 module.exports = router;

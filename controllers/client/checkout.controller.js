@@ -76,5 +76,35 @@ module.exports.orderPost = async (req, res) => {
     );
 
     req.flash("success", "Đặt hàng thành công ");
-    res.redirect("/cart");
+    res.redirect(`/checkout/order/success/${order.id}`);
+};
+
+// [GET] /checkout/order/success/:id
+
+module.exports.orderSuccess = async (req, res) => {
+    const order = await Order.findOne({
+        _id: req.params.orderId,
+    });
+
+    if (order.products.length > 0) {
+        for (const item of order.products) {
+            let productInfo = await Product.findOne({
+                _id: item.product_id,
+            });
+            item.productInfo = productInfo;
+            item.productInfo.priceNew =
+                item.productInfo.price *
+                (1 - item.productInfo.discountPercentage / 100);
+        }
+        const totalPrice = order.products.reduce(
+            (sum, item) => sum + item.quantity * item.productInfo.priceNew,
+            0
+        );
+        order.totalPrice = totalPrice;
+    }
+
+    res.render("client/pages/checkout/checkoutSuccess.pug", {
+        order: order,
+        pageTitle: "Đặt hàng thành công",
+    });
 };
