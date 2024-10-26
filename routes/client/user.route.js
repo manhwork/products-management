@@ -11,4 +11,8 @@ router.post(
     controller.registerPost
 );
 
+router.get("/login", controller.login);
+
+router.post("/login", registerValidate.loginPost, controller.loginPost);
+
 module.exports = router;
