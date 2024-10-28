@@ -1,5 +1,6 @@
 const User = require("../../models/users.model");
-
+const ForgotPassword = require("../../models/forgotPasswordModel");
+const generrate = require("../../helpers/generate");
 const md5 = require("md5");
 // [GET] /user/register
 
@@ -69,4 +70,36 @@ module.exports.loginPost = async (req, res) => {
 module.exports.logout = async (req, res) => {
     res.clearCookie("tokenUser");
     res.redirect("/");
+};
+
+// [GET] /user/password/forgot
+module.exports.passwordForgot = async (req, res) => {
+    res.render("client/pages/user/forgotPassword");
+};
+
+// [POST] /user/password/forgot
+
+module.exports.passwordForgotPost = async (req, res) => {
+    const email = req.body.email;
+    const user = await User.findOne({
+        email: email,
+        deleted: false,
+        status: "active",
+    });
+
+    if (!user) {
+        req.flash("error", "Không tìm thấy email");
+        res.redirect("back");
+        return;
+    }
+
+    const objectOTP = {
+        email: email,
+        otp: generrate.generateRandomNumber(6),
+        expireAt: new Date() + 1000 * 5,
+    };
+
+    const forgotpassword = new ForgotPassword(objectOTP);
+    await forgotpassword.save();
+    res.send("ok");
 };
