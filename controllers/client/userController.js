@@ -96,10 +96,78 @@ module.exports.passwordForgotPost = async (req, res) => {
     const objectOTP = {
         email: email,
         otp: generrate.generateRandomNumber(6),
-        expireAt: new Date() + 1000 * 5,
+        expireAt: new Date() + 1000 * 60 * 3,
     };
 
     const forgotpassword = new ForgotPassword(objectOTP);
     await forgotpassword.save();
-    res.send("ok");
+
+    res.redirect(`/user/password/otp?email=${email}`);
+};
+
+// [GET] /user/password/otp
+
+module.exports.otpPassword = async (req, res) => {
+    const email = req.query.email;
+
+    res.render("client/pages/user/otpPassword", {
+        email: email,
+    });
+};
+
+// [POST] /user/password/otp
+
+module.exports.otpPost = async (req, res) => {
+    const otp = req.body.otp;
+    const email = req.body.email;
+    const forgotPassword = await ForgotPassword.findOne({
+        email: email,
+        otp: otp,
+    });
+
+    if (!forgotPassword) {
+        req.flash("error", "Mã OTP không hợp lệ");
+        res.redirect("back");
+        return;
+    }
+    req.flash("success", "Nhập mã otp thành công");
+    const user = await User.findOne({
+        email: email,
+        deleted: false,
+        status: "active",
+    });
+    res.cookie("tokenUser", user.tokenUser);
+    res.redirect("/user/password/change");
+};
+
+// [GET] /user/password/change
+
+module.exports.changePassword = async (req, res) => {
+    res.render("client/pages/user/changePassword");
+};
+
+// [POST] /user/password/change
+
+module.exports.changePasswordPost = async (req, res) => {
+    const newPassword = md5(req.body.newPassword);
+    const confirmPassword = md5(req.body.confirmPassword);
+    const tokenUser = req.cookies.tokenUser;
+
+    if (newPassword !== confirmPassword) {
+        req.flash("error", "Mật khẩu không trùng khớp");
+        res.redirect("back");
+        return;
+    }
+
+    await User.updateOne(
+        {
+            tokenUser: tokenUser,
+            deleted: false,
+            status: "active",
+        },
+        {
+            password: newPassword,
+        }
+    );
+    res.redirect("/");
 };
