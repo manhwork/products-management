@@ -179,3 +179,11 @@ module.exports.changePasswordPost = async (req, res) => {
     );
     res.redirect("/");
 };
+
+// [GET] /user/info
+module.exports.userInfo = async (req, res) => {
+    // console.log(res.locals.user);
+    res.render("client/pages/user/info", {
+        pageTitle: "Thông tin tài khoản",
+    });
+};

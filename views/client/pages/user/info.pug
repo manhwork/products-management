@@ -1,0 +1,13 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-layout.pug
+
+block main 
+    .container
+        .product-header
+            h1.page-title #{pageTitle}
+
+    h2 #{user.fullName}
+    
+    h2 #{user.email}
+
+    h2 #{user.status = "active" ? "Hoạt động" : "Dừng hoạt động"}
