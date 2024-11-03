@@ -156,6 +156,26 @@ block main
                     each item in records 
                         td(class="text-center") 
                             input(type="checkbox")
+                
+                // Cài đặt chung
+                tr 
+                    td(colspan=4) 
+                        b Cài đặt chung 
+                tr(data-name="settings_view")
+                    td Xem 
+                    each item in records 
+                        td(class="text-center") 
+                            input(
+                                type="checkbox"
+                                checked= check
+                            )
+                tr(data-name="settings_edit")
+                    td Cập sửa 
+                    each item in records 
+                        td(class="text-center") 
+                            input(type="checkbox")
+
+
 
 
 
