@@ -3,9 +3,10 @@ header.header
     .container-fluid 
         .row.align-items-center 
             .col-3 
-                .inner-logo 
-                    a(href="/")
-                        img(src="/images/logo.png", alt="", srcset="")
+                .inner-logo
+                    a(href="/" class="d-flex text-decoration-none")
+                        img(src=infoWeb.logo, alt="", srcset="" width="100px")
+                        div(class="logo__text display-3 " style="color: #6e8fff" ) #{infoWeb.websiteName}
             
             .col-5 
                 .inner-form 
