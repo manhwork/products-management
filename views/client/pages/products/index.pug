@@ -8,7 +8,8 @@ block main
     +alert-success(2000)
 
     .container
-        .product-header
-            h1.page-title #{pageTitle}
-
-        +product-grid(products)
+        .product-header.card 
+            .card-header 
+                h1.page-title #{pageTitle}
+            .card-body
+                +product-grid(products)

@@ -2,18 +2,21 @@ extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
 
 block main 
-    h1 Trang Chủ
+    h1.text-center.mt-2 Trang Chủ
+
+    .container.row 
+        .col-12 
+            .product-header.card 
+                .card-header
+                    h3.text-left.text Danh sách sản phẩm nổi bật
+                .card-body
+                    +product-grid(productsFeatured)
 
     .container
-        .product-header
-            h3.text-left.text-success Danh sách sản phẩm nổi bật
-
-        +product-grid(productsFeatured)
-
-    .container
-        .product-header
-            h3.text-left.text-success Danh sách sản phẩm mới nhất
-
-        +product-grid(newProducts)
+        .product-header.card 
+            .card-header
+                h3.text-left.text Danh sách sản phẩm mới nhất
+            .card-body
+                +product-grid(newProducts)
 
     

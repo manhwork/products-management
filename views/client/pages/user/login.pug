@@ -1,23 +1,29 @@
 include ../../mixins/alert-error.pug
 include ../../mixins/alert-success.pug
-
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css")
 
 +alert-error(2000)
 +alert-success(2000)
 
-h1 Đăng nhập tài khoản 
-br
-form(action=`/user/login`, method="post") 
-    label(for="email") Email :
-    br 
-    input(type="text" id="email" name="email" placeholder="Nhập email" required)
-    br
-    label(for="password") Password :
-    br
-    input(type="password" id="password" name="password" placeholder="Nhập mật khẩu" required)  
-    br
-    button(type="submit", value="") Đăng nhập
+.container
+    .row.justify-content-center.mt-5
+        .col-6 
+            .card 
+                .card-header 
+                    h1 Đăng nhập tài khoản 
+                .card-body 
+                    form(action=`/user/login`, method="post") 
+                        div.form-group
+                            label(for="email") Email :
+                            input.form-control(type="text" id="email" name="email" placeholder="Nhập email" required)
+                        div.form-group
+                            label(for="password") Password :
+                            input.form-control(type="password" id="password" name="password" placeholder="Nhập mật khẩu" required)  
+                        button.btn.btn-primary(type="submit" class="mt-2") Đăng nhập
 
-a(href="/user/register") Đăng kí 
-br
-a(href="/user/password/forgot") Quên mật khẩu 
+                    div.mt-3
+                        a(href="/user/register") Đăng kí 
+                        br
+                        a(href="/user/password/forgot") Quên mật khẩu
+                        br 
+                        a(href="/") Trang chủ 

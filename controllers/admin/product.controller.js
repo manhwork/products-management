@@ -239,15 +239,9 @@ module.exports.createPOST = async (req, res) => {
             req.body.position = parseInt(req.body.position);
         }
 
-        // if (req.file) {
-        //     req.body.thumbnail = `/uploads/${req.file.filename}`
-        // }
-
         const createdBy = {};
         createdBy.account_id = res.locals.user.id;
-        // console.log(createdBy);
         req.body.createdBy = createdBy;
-        // console.log(req.body);
 
         const product = new Product(req.body);
         await product.save();
@@ -286,8 +280,6 @@ module.exports.edit = async (req, res) => {
 // [PATCH] /admin/products/edit
 
 module.exports.editPatch = async (req, res) => {
-    // console.log(req.body);
-
     req.body.price = parseInt(req.body.price);
 
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
@@ -309,7 +301,6 @@ module.exports.editPatch = async (req, res) => {
         const updatedBy = {
             account_id: res.locals.user.id,
         };
-        // console.log(req.body);
         await Product.updateOne(
             { _id: req.params.id },
             { ...req.body, $push: { updatedBy: updatedBy } }

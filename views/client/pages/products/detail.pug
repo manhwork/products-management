@@ -7,39 +7,45 @@ block main
     +alert-success(2000)
 
     .product-detail 
-        .container.my-5
-            .row 
-                .col-6 
-                    .inner-thumb 
-                        img(src=`${product.thumbnail}`, alt="", srcset="")
-                .col-6 
-                    h1(class="inner-title") #{product.title}
-                    if(category)
-                        div(class="inner-category") 
-                            span Danh mục : 
-                            a(href=`/products/${category.slug}`) #{category.title}
+        .container
+            .row.card
+                .col-12.card-header 
+                    h3.text-left.text Chi tiết sản phẩm 
+                .card-body.row 
+                    .col-6 
+                        .inner-thumb 
+                            img(src=`${product.thumbnail}`, alt="", srcset="")
+                    .col-6 
+                        h1(class="inner-title") #{product.title}
+                        if(category)
+                            div(class="inner-category") 
+                                span Danh mục : 
+                                a(href=`/products/${category.slug}`) #{category.title}
 
-                    if(product.priceNew)
-                        .inner-price-new #{product.priceNew}$ 
+                        if(product.priceNew)
+                            .inner-price-new #{product.priceNew}$ 
 
-                    if(product.price)
-                        .inner-price-old #{product.price}$
+                        if(product.price)
+                            .inner-price-old #{product.price}$
 
-                    if(product.discountPercentage)
-                        div(class="inner-percent") Giảm tới 
-                            span #{product.discountPercentage / 100 * product.price}$ 
+                        if(product.discountPercentage)
+                            div(class="inner-percent") Giảm tới 
+                                span #{product.discountPercentage / 100 * product.price}$ 
 
-                    if(product.stock)
-                        .inner-stock Còn lại 
-                            span #{product.stock} sản phẩm 
+                        if(product.stock)
+                            .inner-stock Còn lại 
+                                span #{product.stock} sản phẩm 
 
-                    form(action=`/cart/add/${product.id}`, method="post") 
-                        input(type="number", name="quantity" class="form-control mb-2" min="1" value=1 max=product.stock)
-                        button(type="submit" class="btn btn-success btn-block" ) Thêm vào giỏ hảng 
+                        form(action=`/cart/add/${product.id}`, method="post") 
+                            input(type="number", name="quantity" class="form-control mb-2" min="1" value=1 max=product.stock)
+                            button(type="submit" class="btn btn-success btn-block" ) Thêm vào giỏ hảng 
         hr 
 
         .container.my-5 
-            .row 
+            .row    
                 .col-12 
-                    h3.text-success.text-left Mô tả sản phẩm 
-                    .inner-desc !{product.description} 
+                    div(class="card") 
+                        .card-header 
+                            h3.text-left Mô tả sản phẩm 
+                        .card-body
+                            .inner-desc !{product.description} 

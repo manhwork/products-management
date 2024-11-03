@@ -9,43 +9,43 @@ block main
 
 
 
-    .container
-        .product-header.text-left
-            h1.page-title.text-primary #{pageTitle}
-
-        .row 
-            .col-12 
-                if(record.products.length > 0)
-                    table(class="table table-bodered")
-                        thead 
-                            tr 
-                                th STT 
-                                th Ảnh 
-                                th Tên 
-                                th Giá 
-                                th Số lượng 
-                                th Tổng tiền 
-                                th Hành động 
-                        tbody 
-                            each item, index in record.products 
+    .container.row 
+        .col-12 
+            .card 
+                .card-header.product-header.text-left
+                    h1.page-title.text #{pageTitle}
+                .card-body
+                    if(record.products.length > 0)
+                        table(class="table table-bodered")
+                            thead 
                                 tr 
-                                    td #{index + 1}
-                                    td 
-                                        img(src= `${item.productInfo.thumbnail}`, alt=`${item.productInfo.title}` width="80px")
-                                    td 
-                                        a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}  
-                                    td #{item.productInfo.priceNew}$
-                                    td 
-                                        input(type="number" product-id=item.product_id name="quantity" value=item.quantity min=1 max=item.productInfo.stock item-id style="width : 60px")
-                                    td #{item.productInfo.priceNew * item.quantity}$
-                                    td 
-                                        a(href=`/cart/delete/${item.product_id}` class="btn btn-danger ") Xoá 
-                    
-                    h3(class="text-right") Tổng đơn hàng : #{record.totalPrice}$
+                                    th STT 
+                                    th Ảnh 
+                                    th Tên 
+                                    th Giá 
+                                    th Số lượng 
+                                    th Tổng tiền 
+                                    th Hành động 
+                            tbody 
+                                each item, index in record.products 
+                                    tr 
+                                        td #{index + 1}
+                                        td 
+                                            img(src= `${item.productInfo.thumbnail}`, alt=`${item.productInfo.title}` width="80px")
+                                        td 
+                                            a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}  
+                                        td #{item.productInfo.priceNew}$
+                                        td 
+                                            input(type="number" product-id=item.product_id name="quantity" value=item.quantity min=1 max=item.productInfo.stock item-id style="width : 60px")
+                                        td #{item.productInfo.priceNew * item.quantity}$
+                                        td 
+                                            a(href=`/cart/delete/${item.product_id}` class="btn btn-danger ") Xoá 
+                        
+                        h3(class="text-right") Tổng đơn hàng : #{record.totalPrice}$
 
-                    div(class="text-right mt-3")
-                        a(href="/checkout" class="btn btn-success") Thanh toán 
-                else 
-                    p Không có sản phẩm nào trong giỏ hàng
+                        div(class="text-right mt-3")
+                            a(href="/checkout" class="btn btn-success") Thanh toán 
+                    else 
+                        p Không có sản phẩm nào trong giỏ hàng
 
             

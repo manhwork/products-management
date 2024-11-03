@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
     const newProducts = productsHelper.newPrice(products);
 
     res.render("client/pages/products/index", {
-        pageTitle: "Danh sach san pham",
+        pageTitle: "Danh sách sản phẩm",
         products: newProducts,
     });
 };

@@ -2,12 +2,15 @@ extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
 
 block main 
-    .container
-        .product-header
-            h1.page-title #{pageTitle}
-
-    h2 #{user.fullName}
-    
-    h2 #{user.email}
-
-    h2 #{user.status = "active" ? "Hoạt động" : "Dừng hoạt động"}
+    .container-fluid.row.mt-4 
+        .col-12 
+            .card.mb-4  
+                .card-header 
+                    h3.page-title #{pageTitle}
+                .card-body 
+                    p Họ và tên : 
+                        b #{user.fullName}
+                    p Email : 
+                        b #{user.email}
+                    p Phân quyền : 
+                        b #{user.status = "active" ? "Hoạt động" : "Dừng hoạt động"}
