@@ -1,0 +1,107 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert-error.pug
+include ../../mixins/alert-success.pug
+include ../../mixins/select.pug
+
+block main 
+    +alert-error(5000)
+    +alert-success(5000)
+
+    h1(class="mb-4") Cài đặt
+
+    form(
+        action=`${prefixAdmin}/settings/general?_method=PATCH`
+        method="POST"
+        enctype="multipart/form-data"
+    ) 
+        // Tên 
+        div(class="form-group")
+            label(for="websiteName") <strong>Tên Website</strong>
+            input(
+                type="text"
+                name="websiteName"
+                id="websiteName"
+                class="form-control"
+                placeholder="Nhập tên của Website"
+                required
+                value=record.websiteName
+            ) 
+        // email
+        div(class="form-group")
+            label(for="email") <strong>Email Website</strong>
+            input(
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="Nhập email của Website"
+                required
+                value=record.email
+            ) 
+        // phone
+        div(class="form-group")
+            label(for="phone") <strong>Phone Website</strong>
+            input(
+                type="text"
+                name="phone"
+                id="phone"
+                class="form-control"
+                placeholder="Nhập phone của Website"
+                required
+                value=record.phone
+            ) 
+        //Địa chỉ 
+        div(class="form-group")
+            label(for="address") <strong>Address Website</strong>
+            input(
+                type="text"
+                name="address"
+                id="address"
+                class="form-control"
+                placeholder="Nhập address của Website"
+                required
+                value=record.address
+            ) 
+        // copyright
+        div(class="form-group")
+            label(for="copyright") <strong>Copyright Website</strong>
+            input(
+                type="text"
+                name="copyright"
+                id="copyright"
+                class="form-control"
+                placeholder="Nhập copyright của Website"
+                required
+                value=record.copyright
+            ) 
+        // Logo 
+        div(
+            class="form-group"
+            upload-input
+        )
+            label(for="logo") <strong>Logo website</strong>
+            input(
+                type="file"
+                name="logo"
+                id="logo"
+                class="form-control-file"
+                accept="image/*"
+                upload-input-image
+            )
+            img(
+                upload-input-preview 
+                src=record.logo
+            )
+            span(
+                preview-hidden 
+                class="preview--button__hidden"
+            ) X
+        div(class="form-group")
+            button(
+                class="btn btn-primary"
+                type="submit"
+            ) Cập nhật
+
+        script(src="/tinymce/tinymce.min.js")    
+        script(src="/admin/js/tinymce-config.js")     
+        script(src="/admin/js/script.js")
