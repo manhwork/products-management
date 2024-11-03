@@ -45,10 +45,15 @@ app.use(
     express.static(path.join(__dirname, "node_modules", "tinymce"))
 );
 // End Tiny MCE
-
+// Routes
 route(app);
 routeAdmin(app);
-
+// * tức là các đường dẫn còn lại
+app.get("*", (req, res) => {
+    res.render("client/pages/error/404", {
+        pageTitle: "404 Not Found",
+    });
+});
 app.listen(port, () => {
     console.log(`Server is running! with ${port}`);
 });
