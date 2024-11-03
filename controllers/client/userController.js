@@ -1,4 +1,5 @@
 const User = require("../../models/users.model");
+const Cart = require("../../models/cart.model");
 const ForgotPassword = require("../../models/forgotPasswordModel");
 const generrate = require("../../helpers/generate");
 const md5 = require("md5");
@@ -29,6 +30,17 @@ module.exports.registerPost = async (req, res) => {
     await user.save();
     req.flash("success", "Đăng kí tài khoản thành công");
     res.cookie("tokenUser", user.tokenUser);
+    const user_id = user.id;
+    // Cập nhật tạo mới tài khoản thì thêm userId vào database
+    await Cart.updateOne(
+        {
+            _id: req.cookies.cartId,
+        },
+        {
+            user_id: user_id,
+        }
+    );
+
     res.redirect("/");
 };
 
@@ -62,6 +74,25 @@ module.exports.loginPost = async (req, res) => {
         res.redirect("back");
         return;
     }
+    // Kiếm tra nếu có khách hàng cart rồi thì lấy ra cart đó đẩy lên cookie
+    // CÒn ko thì update cái user id cho cart database
+    const user_id = user.id;
+    const cart = await Cart.findOne({
+        user_id: user_id,
+    });
+    if (!cart) {
+        await Cart.updateOne(
+            {
+                _id: req.cookies.cartId,
+            },
+            {
+                user_id: user_id,
+            }
+        );
+    } else {
+        res.clearCookie("cartId");
+        res.cookie("cartId", cart.id);
+    }
     req.flash("success", "Đăng nhập thành công");
     res.cookie("tokenUser", user.tokenUser);
     res.redirect("/");
@@ -71,6 +102,7 @@ module.exports.loginPost = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
     res.clearCookie("tokenUser");
+    res.clearCookie("cartId");
     res.redirect("/");
 };
 
