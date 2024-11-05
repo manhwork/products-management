@@ -57,10 +57,16 @@ module.exports.orderPost = async (req, res) => {
         products.push(objectProduct);
     }
 
+    let user_id = null;
+    if (res.locals.user) {
+        user_id = res.locals.user.id;
+    }
+
     const data = {
         cart_id: cart_id,
         userInfo: userInfo,
         products: products,
+        user_id: user_id,
     };
 
     const order = new Order(data);

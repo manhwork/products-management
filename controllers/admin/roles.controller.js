@@ -22,8 +22,12 @@ module.exports.index = async (req, res) => {
         if (item.updatedBy.length > 0) {
             const userUpdate = item.updatedBy[item.updatedBy.length - 1];
             item.userUpdate = userUpdate;
-            const data = await Account.findOne({ _id: userUpdate.account_id });
-            item.fullNameUpdate = data.fullName;
+            const user = await Account.findOne({
+                _id: userUpdate.account_id,
+            });
+            if (user) {
+                item.fullNameUpdate = user.fullName;
+            }
         }
     }
 

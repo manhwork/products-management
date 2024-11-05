@@ -23,14 +23,13 @@ module.exports.index = async (req, res) => {
             });
             if (user) {
                 item.fullNameAcc = user.fullName;
-                // console.log(user);
             }
         }
         if (item.updatedBy) {
             const userUpdate = item.updatedBy[item.updatedBy.length - 1];
             item.userUpdate = userUpdate;
             const data = await Account.findOne({
-                id: item.updatedBy.account_id,
+                _id: userUpdate.account_id,
             });
             item.fullNameUpdate = data.fullName;
         }
@@ -61,8 +60,6 @@ module.exports.detail = async (req, res) => {
         _id: req.params.id,
     });
 
-    // console.log(data);
-
     const role = await Role.findOne({
         deleted: false,
         _id: data.role_id,
@@ -89,9 +86,7 @@ module.exports.createPost = async (req, res) => {
         } else {
             const createdBy = {};
             createdBy.account_id = res.locals.user.id;
-            // console.log(createdBy);
             req.body.createdBy = createdBy;
-            // console.log(req.body);
             const records = new Account(req.body);
             await records.save();
             req.flash("success", `Tạo tài khoản thành công !`);
@@ -114,7 +109,6 @@ module.exports.edit = async (req, res) => {
             _id: req.params.id,
             deleted: false,
         });
-        // console.log(data);
         res.render("admin/pages/accounts/edit.pug", {
             pageTitle: "Sửa tài khoản",
             roles: roles,
@@ -149,7 +143,6 @@ module.exports.editPatch = async (req, res) => {
             const updatedBy = {
                 account_id: res.locals.user.id,
             };
-            console.log(req.body);
             await Account.updateOne(find, {
                 ...req.body,
                 $push: { updatedBy: updatedBy },

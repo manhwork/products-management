@@ -10,8 +10,72 @@ block main
     if(role.permissions.length > 0)
         h1 Trang tổng quan 
 
-        div #{role.title}
-        div ----------------
-        div #{role.permissions}
+        .row.mt-4 
+            .col-12 
+                .card.mb-4 
+                    .card-header Thông tin tài khoản 
+                    .card-body
+                        img(
+                            src=user.avatar ? user.avatar : ""
+                            style="height : 100px; margin-bottom: 15px"
+                        )
+                        p Họ và tên : 
+                            b #{user.fullName ? user.fullName : ""}
+                        p Số điện thoại : 
+                            b #{user.phone ? user.phone : ""}
+                        p Phân quyền : 
+                            b #{role.title}
+        
+            //- .col-12
+            //-     .card.mb-4 
+            //-         .card-header Đơn hàng  
+            //-         .card-body 
+            //-             p Số lượng: 
+            //-                 b #{statistic.categoryProduct.total}
+            //-             p Hoạt động: 
+            //-                 b #{statistic.categoryProduct.active}
+            //-             p Dừng hoạt động: 
+            //-                 b #{statistic.categoryProduct.inactive}
+            .col-6
+                .card.mb-4 
+                    .card-header Danh mục sản phẩm 
+                    .card-body 
+                        p Số lượng: 
+                            b #{statistic.categoryProduct.total}
+                        p Hoạt động: 
+                            b #{statistic.categoryProduct.active}
+                        p Dừng hoạt động: 
+                            b #{statistic.categoryProduct.inactive}
+            .col-6
+                .card.mb-4 
+                    .card-header Sản phẩm 
+                    .card-body 
+                        p Số lượng: 
+                            b #{statistic.products.total}
+                        p Hoạt động: 
+                            b #{statistic.products.active}
+                        p Dừng hoạt động: 
+                            b #{statistic.products.inactive}
+            .col-6
+                .card.mb-4 
+                    .card-header Tài khoản admin  
+                    .card-body 
+                        p Số lượng: 
+                            b #{statistic.accounts.total}
+                        p Hoạt động: 
+                            b #{statistic.accounts.active}
+                        p Dừng hoạt động: 
+                            b #{statistic.accounts.inactive}
+            .col-6
+                .card.mb-4 
+                    .card-header Tài khoản client
+                    .card-body 
+                        p Số lượng: 
+                            b #{statistic.user.total}
+                        p Hoạt động: 
+                            b #{statistic.user.active}
+                        p Dừng hoạt động: 
+                            b #{statistic.user.inactive}
+
     else 
         h1 Bạn không có quyền gì cả 

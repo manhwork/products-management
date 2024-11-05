@@ -20,7 +20,6 @@ module.exports.edit = async (req, res) => {
 // [PATCH] /admin/my-account/edit
 
 module.exports.editPatch = async (req, res) => {
-    // console.log(res.locals.user);
     const find = {
         deleted: false,
         _id: res.locals.user.id,
@@ -43,8 +42,6 @@ module.exports.editPatch = async (req, res) => {
             const updatedBy = {
                 account_id: res.locals.user.id,
             };
-            console.log(req.body);
-            // console.log(await Account.findOne(find));
             await Account.updateOne(find, {
                 ...req.body,
                 $push: { updatedBy: updatedBy },

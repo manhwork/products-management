@@ -1,21 +1,22 @@
 include ../mixins/sub-menu.pug
 header.header 
     .container-fluid 
-        .row.align-items-center 
+        .row.align-items-center
             .col-3 
-                .inner-logo 
-                    a(href="/")
-                        img(src="/images/logo.png", alt="", srcset="")
+                .inner-logo
+                    a(href="/" class="d-flex text-decoration-none")
+                        img(src=infoWeb.logo, alt="", srcset="" width="70px")
+                        div(class="logo__text display-4 " style="color: #6e8fff" ) #{infoWeb.websiteName}
             
-            .col-5 
+            .col-3 
                 .inner-form 
                     form(action=`/search`, method="GET" class="form-group d-flex") 
                         input(type="text" class="form-control" name="keyword" placeholder="Search..." value=keyword)
                         button(type="submit" class="btn btn-primary") Tìm
 
-            .col-4 
+            .col-6 
                 .inner-menu 
-                    ul 
+                    ul.justify-content-between  
                         li 
                             a(href="/") Trang chủ
                         li.sub-menu  

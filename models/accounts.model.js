@@ -28,6 +28,7 @@ const accountSchema = new mongoose.Schema(
                 default: new Date(),
             },
         },
+        role_id: String,
         deletedBy: {
             account_id: String,
             deletedAt: Date,
