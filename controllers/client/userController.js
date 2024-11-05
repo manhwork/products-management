@@ -106,9 +106,16 @@ module.exports.passwordForgotPost = async (req, res) => {
 
     const subject = "Gửi mã OTP để lấy lại mật khẩu";
     const html = `
-        Mã OTP xác thực của bạn : <b>${otp}</b>
-        Mã OTP có hiệu lực trong 3 phút 
-    `;
+    Mã OTP xác thực của bạn: <b>${otp}</b><br>
+    Mã OTP có hiệu lực trong 3 phút.<br><br>
+    Bạn vui lòng nhập mã OTP này vào trang xác thực để hoàn tất quá trình đăng nhập hoặc thực hiện giao dịch.<br><br>
+    Nếu bạn không yêu cầu mã OTP này, có thể ai đó đã nhập nhầm địa chỉ email của bạn. Bạn không cần phải làm gì thêm nếu không có yêu cầu này. Tuy nhiên, nếu bạn nhận thấy các hoạt động đáng ngờ, vui lòng liên hệ với chúng tôi ngay để được hỗ trợ.<br><br>
+    Để bảo vệ tài khoản của bạn, chúng tôi khuyến nghị bạn không chia sẻ mã OTP này với bất kỳ ai. Trong trường hợp bạn gặp khó khăn trong việc sử dụng mã OTP, xin vui lòng thử lại hoặc liên hệ với chúng tôi để được giúp đỡ.<br><br>
+    Chúng tôi luôn sẵn sàng hỗ trợ bạn. Bạn có thể liên hệ với chúng tôi qua các kênh hỗ trợ khách hàng như điện thoại, email hoặc chat trực tuyến.<br><br>
+    Trân trọng,<br>
+    Manh Admin
+`;
+
     sendEmailHelper(email, subject, html);
     res.redirect(`/user/password/otp?email=${email}`);
 };
