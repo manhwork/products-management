@@ -34,7 +34,6 @@ module.exports.Upload = async (req, res, next) => {
         async function upload(req) {
             let result = await streamUpload(req);
             req.body[req.file.fieldname] = result.url;
-            // console.log(result);
             next();
         }
 

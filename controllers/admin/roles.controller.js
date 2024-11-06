@@ -16,7 +16,6 @@ module.exports.index = async (req, res) => {
             });
             if (user) {
                 item.fullName = user.fullName;
-                // console.log(user);
             }
         }
         if (item.updatedBy.length > 0) {
@@ -49,9 +48,7 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
     const createdBy = {};
     createdBy.account_id = res.locals.user.id;
-    // console.log(createdBy);
     req.body.createdBy = createdBy;
-    // console.log(req.body);
     const record = new Role(req.body);
     await record.save();
 
@@ -73,8 +70,6 @@ module.exports.edit = async (req, res) => {
             deleted: false,
         });
 
-        // console.log(data);
-
         res.render("admin/pages/roles/edit.pug", {
             pageTitle: "Chỉnh sửa nhóm quyền",
             data: data,
@@ -92,7 +87,6 @@ module.exports.editPatch = async (req, res) => {
             account_id: res.locals.user.id,
         };
 
-        // console.log(req.body);
         await Role.updateOne(
             { _id: req.params.id },
             {

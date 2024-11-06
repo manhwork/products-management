@@ -37,17 +37,15 @@ module.exports.index = async (req, res) => {
             currentPage: 1,
         },
         req,
-        countProducts);
-    // console.log(objectPagiantion);
+        countProducts
+    );
     // End Pagination
 
     // Phân cấp danh mục
 
-    const records = await ProductCategory
-        .find(find)
+    const records = await ProductCategory.find(find)
         .skip(objectPagiantion.productsSkip)
         .limit(objectPagiantion.productsLimit);
-    // console.log(records);
     if (records) {
         for (const item of records) {
             if (item.createdBy) {
@@ -56,32 +54,29 @@ module.exports.index = async (req, res) => {
                 });
                 if (user) {
                     item.fullName = user.fullName;
-                    // console.log(user);
                 }
             }
             if (item.updatedBy) {
                 const userUpdate = item.updatedBy[item.updatedBy.length - 1];
                 item.userUpdate = userUpdate;
-                // console.log(item.userUpdate);
-                const data = await Account.findOne({
-                    _id: item.userUpdate.account_id,
-                });
-                // console.log(data);
-                if (data) {
-                    item.fullNameUpdate = data.fullName;
+                if (userUpdate) {
+                    const data = await Account.findOne({
+                        _id: userUpdate.account_id,
+                    });
+                    if (data) {
+                        item.fullNameUpdate = data.fullName;
+                    }
                 }
             }
         }
     }
     const newRecords = phanCap(records);
-    // console.log(newRecords);
-    // End Phân cấp danh mục
 
     res.render("admin/pages/products-category/index", {
         pageTitle: "Products Category",
         records: newRecords,
         statusFilter: statusFilter,
-        objectPagiantion: objectPagiantion
+        objectPagiantion: objectPagiantion,
     });
 };
 
@@ -152,9 +147,7 @@ module.exports.createPOST = async (req, res) => {
 
     const createdBy = {};
     createdBy.account_id = res.locals.user.id;
-    // console.log(createdBy);
     req.body.createdBy = createdBy;
-    // console.log(req.body);
 
     const record = new ProductCategory(req.body);
     await record.save();
@@ -167,7 +160,6 @@ module.exports.createPOST = async (req, res) => {
 // [PATCH] /admin/products-category/change-multi
 
 module.exports.changeMulti = async (req, res) => {
-    // console.log(req.body);
     const type = req.body.type;
     const ids = req.body.ids.split(", ");
     const updatedBy = {
@@ -276,7 +268,6 @@ module.exports.edit = async (req, res) => {
 // [PATCH] /admin/products-category/edit/:id
 
 module.exports.editPatch = async (req, res) => {
-    // console.log(res.locals.role);
     const permissions = res.locals.role.permissions;
     // Làm tương tự với các phần khác
     if (permissions.includes("products-category_edit")) {

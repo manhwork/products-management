@@ -5,7 +5,6 @@ const systemConfig = require("../../config/system");
 
 module.exports.login = async (req, res) => {
     const token = req.cookies.token;
-    // console.log(token);
     const user = await Account.findOne({
         token: token,
     });

@@ -65,7 +65,6 @@ module.exports.index = async (req, res) => {
             });
             if (user) {
                 item.fullName = user.fullName;
-                // console.log(user);
             }
         }
         if (item.updatedBy.length > 0) {
@@ -201,7 +200,6 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 
 module.exports.create = async (req, res) => {
-    // console.log(res.locals.user);
     const find = {
         deleted: false,
     };

@@ -10,7 +10,7 @@ require("dotenv").config();
 const database = require("./config/database");
 
 const app = express();
-var moment = require("moment"); // require
+let moment = require("moment"); // require
 app.locals.moment = moment;
 app.use(cookieParser("CXHVASJFHGAISDJFHG"));
 app.use(session({ cookie: { maxAge: 60000 } }));

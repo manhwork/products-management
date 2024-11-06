@@ -3,7 +3,6 @@ const Account = require("../../models/accounts.model");
 const Role = require("../../models/roles.model");
 
 module.exports.authRequire = async (req, res, next) => {
-    // console.log(req.cookies.token);
     const token = req.cookies.token;
 
     const user = await Account.findOne({
