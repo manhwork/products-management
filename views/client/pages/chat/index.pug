@@ -8,12 +8,12 @@ block main
     +alert-success(2000)
     link(rel="stylesheet", href="/css/chat.css")
 
-    main.content.mt-3
+    main.content.my-3
         .container.p-0
-            h1.h3.mb-3 Messages
+            h1.h3.mb-3 Tin nhắn
             .card
-                .row.g-0
-                    .col-12.col-lg-5.col-xl-3.border-right.inner-person
+                .row.g-0(style="align-items: stretch;height: 100%")
+                    .col-12.col-lg-5.col-xl-3.border-right.inner-person(style="height: 100%")
                         .px-4.d-none.d-md-block
                             .d-flex.align-items-center
                                 .flex-grow-1
@@ -26,49 +26,6 @@ block main
                                     | Vanessa Tucker
                                     .small
                                         span.fas.fa-circle.chat-online Online
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .badge.bg-success.float-right 2
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="William Harris" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | William Harris
-                                    .small
-                                        span.fas.fa-circle.chat-online Online
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Sharon Lessman" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | Sharon Lessman
-                                    .small
-                                        span.fas.fa-circle.chat-online Online
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Christina Mason" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | Christina Mason
-                                    .small
-                                        span.fas.fa-circle.chat-offline Offline
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Fiona Green" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | Fiona Green
-                                    .small
-                                        span.fas.fa-circle.chat-offline Offline
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Doris Wilder" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | Doris Wilder
-                                    .small
-                                        span.fas.fa-circle.chat-offline Offline
-                        a.list-group-item.list-group-item-action.border-0(href="#")
-                            .d-flex.align-items-start
-                                img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Haley Kennedy" width="40" height="40")
-                                .flex-grow-1.ml-3
-                                    | Haley Kennedy
-                                    .small
-                                        span.fas.fa-circle.chat-offline Offline
                         a.list-group-item.list-group-item-action.border-0(href="#")
                             .d-flex.align-items-start
                                 img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Jennifer Chang" width="40" height="40")
@@ -100,49 +57,22 @@ block main
                                         circle(cx="5" cy="12" r="1")
                         .position-relative
                             .chat-messages.p-4
-                                .chat-message-right.pb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Chris Wood" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:33 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.mr-3
-                                        .font-weight-bold.mb-1 You
-                                        | Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-                                .chat-message-left.pb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Sharon Lessman" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:34 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.ml-3
-                                        .font-weight-bold.mb-1 Sharon Lessman
-                                        | Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-                                .chat-message-right.mb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Chris Wood" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:35 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.mr-3
-                                        .font-weight-bold.mb-1 You
-                                        | Cum ea graeci tractatos.
-                                .chat-message-left.pb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Sharon Lessman" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:36 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.ml-3
-                                        .font-weight-bold.mb-1 Sharon Lessman
-                                        | Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor magna, vitae commodo lectus mauris et velit.
-                                .chat-message-right.mb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Chris Wood" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:37 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.mr-3
-                                        .font-weight-bold.mb-1 You
-                                        | Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-                                .chat-message-left.pb-4
-                                    div
-                                        img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Sharon Lessman" width="40" height="40")
-                                        .text-muted.small.text-nowrap.mt-2 2:38 am
-                                    .flex-shrink-1.bg-light.rounded.py-2.px-3.ml-3
-                                        .font-weight-bold.mb-1 Sharon Lessman
-                                        | Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-                        .flex-grow-0.py-3.px-4.border-top
+                                each chat in chats 
+                                    div(class=(chat.user_id == user.id ? "chat-message-right" : "chat-message-left")).mb-4
+                                        div
+                                            img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Chris Wood" width="40" height="40")
+                                            .text-muted.small.text-nowrap.mt-2 2:37 am
+                                        .flex-shrink-1.bg-light.rounded.py-2.px-3.mr-3
+                                            .font-weight-bold.mb-1 #{chat.user_id == user.id ? "You" : chat.infoUser.fullName}
+                                            | #{chat.content}
+                                    .chat-message-left.pb-4
+                                //-     div
+                                //-         img.rounded-circle.mr-1(src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Sharon Lessman" width="40" height="40")
+                                //-         .text-muted.small.text-nowrap.mt-2 2:38 am
+                                //-     .flex-shrink-1.bg-light.rounded.py-2.px-3.ml-3
+                                //-         .font-weight-bold.mb-1 Sharon Lessman
+                                //-         | Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
+                        form(action=`/chat`, method="post" form-send-message).flex-grow-0.py-3.px-4.border-top
                             .input-group
-                                input.form-control(type="text" placeholder="Type your message")
-                                button.btn.btn-primary  Send
+                                input.form-control(type="text" name="content" placeholder="Type your message" input-message)
+                                button.btn.btn-primary  Gửi 
