@@ -25,6 +25,8 @@ header.header
                             + sub-menu(layoutCategory, productPath)
                         li 
                             a(href="/cart") Giỏ hàng (#{(miniCart ? miniCart.totalQuantity : 0)}) 
+                        li 
+                            a(href="/chat") Chat
                         if(user)
                             li 
                                 a(href="/user/info") #{user.fullName}

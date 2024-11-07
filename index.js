@@ -16,6 +16,8 @@ const routeAdmin = require("./routes/admin/index.route");
 require("dotenv").config();
 
 const app = express();
+
+// SocketIO
 const server = createServer(app);
 const io = new Server(server);
 
@@ -39,10 +41,8 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin; // Thiết lập tiền tố 
 app.set("views", `${__dirname}/views`); // Thiết lập thư mục chứa các view
 app.set("view engine", "pug"); // Thiết lập view engine là Pug
 
-// Kết nối Socket.IO
-io.on("connection", (socket) => {
-    console.log(`A user connected: ${socket.id}`);
-});
+// Biến toàn cục
+global._io = io; // Thiết lập biến toàn cục
 
 // Kết nối cơ sở dữ liệu
 database.connect();

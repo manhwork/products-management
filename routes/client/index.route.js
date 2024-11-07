@@ -12,6 +12,7 @@ const cartMiddleWare = require("../../middlewares/client/cart.middleware");
 const categoryMiddleWare = require("../../middlewares/client/category.middleware");
 const userMiddlerWare = require("../../middlewares/client/userMiddleware");
 const settingsWebsiteMiddleware = require("../../middlewares/client/settingsWebsiteMiddleware");
+const authMiddleWare = require("../../middlewares/client/authMiddleWare");
 
 module.exports = (app) => {
     // ta có thể sử dụng để tất cả các routes đều có middleware đó
@@ -35,5 +36,5 @@ module.exports = (app) => {
 
     app.use("/user", userRoutes);
 
-    app.use("/chat", chatRoutes);
+    app.use("/chat", authMiddleWare.authMiddleware, chatRoutes);
 };
