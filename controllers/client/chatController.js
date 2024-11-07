@@ -3,9 +3,11 @@ const User = require("../../models/users.model");
 // [GET] /chat
 module.exports.index = async (req, res) => {
     const userId = res.locals.user.id;
+    const currentUser = res.locals.user;
     // Kết nối Socket.IO
-    _io.on("connection", (socket) => {
+    _io.once("connection", (socket) => {
         console.log(`A user connected: ${socket.id}`);
+        // Bắt sự kiện bên Client
         socket.on("CLIENT_SEND_MESSAGE", async (message) => {
             // Lưu vào CSDL
             const chat = new Chat({
@@ -13,6 +15,12 @@ module.exports.index = async (req, res) => {
                 content: message,
             });
             await chat.save();
+
+            // Trả lại data ra Client
+            _io.emit("SERVER_SEND_MESSAGE", {
+                content: message,
+                user: currentUser,
+            });
         });
     });
     // End Socket.IO
