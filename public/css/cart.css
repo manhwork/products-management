@@ -1,0 +1,92 @@
+/* Đặt lại các kiểu cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Container chính */
+.container {
+    margin: 20px auto;
+    /* Khoảng cách tự động */
+}
+
+/* Tiêu đề trang */
+.page-title {
+    font-size: 2rem;
+    /* Kích thước chữ lớn */
+    font-weight: bold;
+    /* Chữ đậm */
+    margin-bottom: 20px;
+    /* Khoảng cách dưới */
+    color: #007bff;
+    /* Màu xanh */
+}
+
+/* Bảng sản phẩm */
+.table {
+    margin-bottom: 20px;
+    /* Khoảng cách dưới */
+}
+
+/* Hình ảnh sản phẩm */
+.table img {
+    max-width: 80px;
+    /* Kích thước tối đa cho hình ảnh */
+    height: auto;
+    /* Tự động điều chỉnh chiều cao */
+    border-radius: 5px;
+    /* Bo tròn các góc */
+}
+
+/* Hiệu ứng đổ bóng cho thẻ card */
+.card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Đổ bóng nhẹ cho card */
+    transition: box-shadow 0.3s ease;
+    /* Hiệu ứng chuyển đổi khi hover */
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    /* Đổ bóng đậm hơn khi hover */
+}
+
+/* Nút xóa */
+.btn-danger {
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển màu */
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    /* Màu đỏ đậm khi hover */
+}
+
+/* Tổng đơn hàng */
+.total-price {
+    margin-top: 20px;
+    /* Khoảng cách trên */
+    font-size: 1.5rem;
+    /* Kích thước chữ lớn */
+    font-weight: bold;
+    /* Chữ đậm */
+}
+
+/* Nút thanh toán */
+.btn-success {
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển màu */
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    /* Màu xanh lá đậm khi hover */
+}
+
+/* Responsive cho input số lượng */
+.quantity-input {
+    width: 80px;
+}
+
+/* Để chiều rộng

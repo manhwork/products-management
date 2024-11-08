@@ -2,6 +2,14 @@ footer.footer
     .container
         .row
             .col-12.text-center
-                p #{infoWeb.copyright}
-                p #{infoWeb.email}
-                p #{infoWeb.phone}
+                p.copyright #{infoWeb.copyright}
+                p.email #{infoWeb.email}
+                p.phone #{infoWeb.phone}
+                .social-icons
+                    a(href="https://facebook.com", target="_blank", class="social-icon") 
+                        i.fa.fa-facebook
+                    a(href="https://twitter.com", target="_blank", class="social-icon") 
+                        i.fa.fa-twitter
+                    a(href="https://instagram.com", target="_blank", class="social-icon") 
+                        i.fa.fa-instagram
+                p.footer-note #{infoWeb.copyright}. Tất cả các quyền được bảo lưu.

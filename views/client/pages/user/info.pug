@@ -1,16 +1,35 @@
 extends ../../layouts/default.pug
 include ../../mixins/product-layout.pug
 
-block main 
-    .container-fluid.row.mt-4 
-        .col-12 
-            .card.mb-4  
-                .card-header 
-                    h3.page-title #{pageTitle}
-                .card-body 
-                    p Họ và tên : 
-                        b #{user.fullName}
-                    p Email : 
-                        b #{user.email}
-                    p Phân quyền : 
-                        b #{user.status = "active" ? "Hoạt động" : "Dừng hoạt động"}
+block main
+    .container-fluid.my-4
+        .row
+            .col-md-8.offset-md-2
+                .card.border-light.shadow
+                    .card-header.bg-info.text-white
+                        h3.page-title.text-center #{pageTitle}
+                    .card-body
+                        .row
+                            .col-md-4.text-center
+                                img(src=user.avatarUrl alt="Avatar", class="rounded-circle img-fluid profile-avatar")
+                                h5.mt-2 #{user.fullName}
+                                p.text-muted #{user.email}
+                            .col-md-8
+                                .info-section
+                                    h5 Thông tin cá nhân
+                                    .list-group
+                                        .list-group-item
+                                            | Họ và tên: 
+                                            b #{user.fullName}
+                                        .list-group-item
+                                            | Email: 
+                                            b #{user.email}
+                                        .list-group-item
+                                            | Trạng thái: 
+                                            b #{user.status == "active" ? "Hoạt động" : "Dừng hoạt động"}
+                                .text-right.mt-4
+                                    a.btn.btn-primary(href=`/user/edit/${user.id}`) Chỉnh sửa thông tin
+
+
+
+    
