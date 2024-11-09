@@ -14,6 +14,10 @@ const systemConfig = require("../../config/system");
 module.exports = (app) => {
     const path_admin = systemConfig.prefixAdmin;
 
+    app.get(path_admin, authRequire.authRequire, (req, res) => {
+        res.redirect(`${path_admin}/dashboard`);
+    });
+
     app.use(
         path_admin + "/dashboard",
         authRequire.authRequire,

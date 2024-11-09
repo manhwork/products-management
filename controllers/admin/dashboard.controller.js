@@ -71,7 +71,7 @@ module.exports.dashboard = async (req, res) => {
     statistic.user.inactive = statistic.user.total - statistic.user.active;
 
     res.render("admin/pages/dashboard/index", {
-        pageTitle: "Trang tong quan",
+        pageTitle: "Trang tổng quan",
         statistic: statistic,
     });
 };
