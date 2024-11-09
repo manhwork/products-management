@@ -15,7 +15,6 @@ module.exports.index = async (req, res) => {
                 content: message,
             });
             await chat.save();
-
             // Trả lại data ra Client
             _io.emit("SERVER_SEND_MESSAGE", {
                 content: message,

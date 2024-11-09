@@ -1,3 +1,5 @@
+import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
+
 const messages = document.querySelector(".messages");
 const scrollHeight = messages.scrollHeight;
 messages.scrollTop = scrollHeight;
@@ -12,17 +14,17 @@ if (formSendMessage) {
             socket.emit("CLIENT_SEND_MESSAGE", message);
         }
         inputMessage.value = "";
+
+        const tooltip = document.querySelector(".tooltip");
+        tooltip.classList.toggle("shown");
     });
 }
 // End CLIENT_SEND_MESSAGE
 
 // SERVER_SEND_MESSAGE
 socket.on("SERVER_SEND_MESSAGE", (data) => {
-    console.log(data);
     const userIdElement = document.querySelector("[user-id]");
     const userId = userIdElement.getAttribute("user-id");
-    console.log(userId);
-    console.log(data.user.id);
     const chatMessages = document.querySelector(".messages");
     const li = document.createElement("li");
     if (userId == data.user._id) {
@@ -42,3 +44,23 @@ socket.on("SERVER_SEND_MESSAGE", (data) => {
     messages.scrollTop = scrollHeight;
 });
 // End SERVER_SEND_MESSAGE
+
+// Event emoji click
+const emojiPicker = document.querySelector("emoji-picker");
+if (emojiPicker) {
+    emojiPicker.addEventListener("emoji-click", (e) => {
+        const emoji = e.detail.unicode;
+        inputMessage.value += emoji;
+    });
+}
+
+const buttonEmoji = document.querySelector(".btn-emoji");
+const tooltip = document.querySelector(".tooltip");
+if (buttonEmoji) {
+    Popper.createPopper(buttonEmoji, tooltip);
+    buttonEmoji.addEventListener("click", () => {
+        tooltip.classList.toggle("shown");
+    });
+}
+
+//End Event emoji click

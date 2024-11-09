@@ -111,6 +111,12 @@
     align-items: center;
 }
 
+.bottom_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .send_message button {
     background-color: #007bff;
     color: white;
@@ -122,4 +128,22 @@
 
 .send_message button:hover {
     background-color: #0056b3;
+}
+
+emoji-picker {
+    --emoji-font-family: MyCustomFont;
+}
+
+.btn-emoji {
+    font-size: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.tooltip {
+    opacity: 1;
+}
+
+.tooltip:not(.shown) {
+    display: none;
 }

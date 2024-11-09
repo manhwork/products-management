@@ -25,12 +25,16 @@ block main
                             div(class="text") #{chat.content}
             
             form(action="/chat", method="post" form-send-message) 
-                div(class="bottom_wrapper clearfix")
+                div(class="bottom_wrapper clearfix d-flex")
                     div(class="message_input_wrapper")
                         input(class="message_input",name="content" placeholder="Type your message here..." input-message)
+                    span(class="btn-emoji") 😀
                     div(class="send_message")
                         div(class="icon")
                         button(class="text" type="submit") Send
+            
+            div(class="tooltip" role="tooltip")
+                emoji-picker(class="light")
         
         div(class="message_template")
             li(class="message")
