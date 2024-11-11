@@ -27,7 +27,7 @@ module.exports.index = async (req, res) => {
 
         //Typing
         socket.on("CLIENT_TYPING", (type) => {
-            _io.emit("SERVER_TYPING", {
+            socket.broadcast.emit("SERVER_TYPING", {
                 userId: userId,
                 fullName: fullName,
                 type: type,
