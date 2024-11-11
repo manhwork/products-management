@@ -14,6 +14,10 @@ if (formSendMessage) {
             socket.emit("CLIENT_SEND_MESSAGE", message);
         }
         inputMessage.value = "";
+        const existTyping = listTyping.querySelector(
+            `[user-id="${data.userId}"]`
+        );
+        existTyping.remove();
     });
 }
 // End CLIENT_SEND_MESSAGE
@@ -64,8 +68,13 @@ if (emojiPicker) {
 // Typing
 const listTyping = document.querySelector(".list-inner-typing");
 if (listTyping) {
+    var timeOut;
     inputMessage.addEventListener("keyup", (e) => {
         socket.emit("CLIENT_TYPING", "show");
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+            socket.emit("CLIENT_TYPING", "hidden");
+        }, 3000);
     });
 
     socket.on("SERVER_TYPING", (data) => {
@@ -88,6 +97,9 @@ if (listTyping) {
                 </div>
             `;
             listTyping.appendChild(div);
+        }
+        if (data.type === "hidden" && existTyping) {
+            listTyping.removeChild(existTyping);
         }
     });
 }
