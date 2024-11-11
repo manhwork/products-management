@@ -5,7 +5,6 @@ module.exports.index = async (req, res) => {
     const user = res.locals.user;
     const userId = user.id;
     const fullName = user.fullName;
-    const currentUser = res.locals.user;
     // Kết nối Socket.IO
     _io.once("connection", (socket) => {
         console.log(`A user connected: ${socket.id}`);

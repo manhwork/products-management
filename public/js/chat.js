@@ -52,6 +52,7 @@ if (emojiPicker) {
     emojiPicker.addEventListener("emoji-click", (e) => {
         const emoji = e.detail.unicode;
         inputMessage.value += emoji;
+        socket.emit("CLIENT_TYPING", "show");
     });
     const buttonEmoji = document.querySelector(".btn-emoji");
     const tooltip = document.querySelector(".tooltip");
