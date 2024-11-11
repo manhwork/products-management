@@ -14,9 +14,6 @@ if (formSendMessage) {
             socket.emit("CLIENT_SEND_MESSAGE", message);
         }
         inputMessage.value = "";
-
-        const tooltip = document.querySelector(".tooltip");
-        tooltip.classList.toggle("shown");
     });
 }
 // End CLIENT_SEND_MESSAGE
@@ -27,14 +24,14 @@ socket.on("SERVER_SEND_MESSAGE", (data) => {
     const userId = userIdElement.getAttribute("user-id");
     const chatMessages = document.querySelector(".messages");
     const li = document.createElement("li");
-    if (userId == data.user._id) {
+    if (userId == data.userId) {
         li.classList.add("message", "right", "appeared");
-        data.user.fullName = "You";
+        data.fullName = "You";
     } else {
         li.classList.add("message", "left", "appeared");
     }
     li.innerHTML = `
-            <div class="avatar" bis_skin_checked="1">${data.user.fullName}</div>
+            <div class="avatar" bis_skin_checked="1">${data.fullName}</div>
             <div class="text_wrapper" bis_skin_checked="1">
                 <div class="text" bis_skin_checked="1">${data.content}</div>
             </div>     
@@ -52,15 +49,23 @@ if (emojiPicker) {
         const emoji = e.detail.unicode;
         inputMessage.value += emoji;
     });
-}
-
-const buttonEmoji = document.querySelector(".btn-emoji");
-const tooltip = document.querySelector(".tooltip");
-if (buttonEmoji) {
-    Popper.createPopper(buttonEmoji, tooltip);
-    buttonEmoji.addEventListener("click", () => {
-        tooltip.classList.toggle("shown");
-    });
+    const buttonEmoji = document.querySelector(".btn-emoji");
+    const tooltip = document.querySelector(".tooltip");
+    if (buttonEmoji) {
+        Popper.createPopper(buttonEmoji, tooltip);
+        buttonEmoji.addEventListener("click", () => {
+            tooltip.classList.toggle("shown");
+        });
+    }
 }
 
 //End Event emoji click
+
+// Typing
+const listTyping = document.querySelector("list-inner-typing");
+if (listTyping) {
+    inputMessage.addEventListener("keyup", (e) => {
+        socket.emit("CLIENT_TYPING", "show");
+    });
+}
+// End Typing

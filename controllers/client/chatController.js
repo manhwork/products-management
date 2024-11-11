@@ -2,7 +2,9 @@ const Chat = require("../../models/chatModel");
 const User = require("../../models/users.model");
 // [GET] /chat
 module.exports.index = async (req, res) => {
-    const userId = res.locals.user.id;
+    const user = res.locals.user;
+    const userId = user.id;
+    const fullName = user.fullName;
     const currentUser = res.locals.user;
     // Kết nối Socket.IO
     _io.once("connection", (socket) => {
@@ -18,9 +20,20 @@ module.exports.index = async (req, res) => {
             // Trả lại data ra Client
             _io.emit("SERVER_SEND_MESSAGE", {
                 content: message,
-                user: currentUser,
+                userId: userId,
+                fullName: fullName,
             });
         });
+
+        //Typing
+        socket.on("CLIENT_TYPING", (type) => {
+            _io.emit("SERVER_TYPING", {
+                userId: userId,
+                fullName: fullName,
+                type: type,
+            });
+        });
+        //End Typing
     });
     // End Socket.IO
     const chats = await Chat.find({

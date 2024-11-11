@@ -130,6 +130,46 @@
     background-color: #0056b3;
 }
 
+.inner-typing {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.inner-typing .sender {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.inner-dots {
+    display: flex;
+    align-items: center;
+}
+
+.inner-dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #007bff;
+    margin: 0 2px;
+    animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Emoji  */
 emoji-picker {
     --emoji-font-family: MyCustomFont;
 }
@@ -147,3 +187,5 @@ emoji-picker {
 .tooltip:not(.shown) {
     display: none;
 }
+
+/* End Emoji  */

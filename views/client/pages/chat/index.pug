@@ -23,6 +23,13 @@ block main
                         div(class="sender") #{(chat.infoUser.id == user.id ? "You" : chat.infoUser.fullName)}
                         div(class="text_wrapper")
                             div(class="text") #{chat.content}
+            div(class="list-inner-typing")
+                //- div(class="inner-typing")
+                //-     div(class="sender") Ben kia 
+                //-     div(class="inner-dots")
+                //-         span    
+                //-         span    
+                //-         span 
             
             form(action="/chat", method="post" form-send-message) 
                 div(class="bottom_wrapper clearfix d-flex")
