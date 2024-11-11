@@ -62,10 +62,34 @@ if (emojiPicker) {
 //End Event emoji click
 
 // Typing
-const listTyping = document.querySelector("list-inner-typing");
+const listTyping = document.querySelector(".list-inner-typing");
 if (listTyping) {
     inputMessage.addEventListener("keyup", (e) => {
         socket.emit("CLIENT_TYPING", "show");
     });
+
+    socket.on("SERVER_TYPING", (data) => {
+        const existTyping = listTyping.querySelector(
+            `[user-id="${data.userId}"]`
+        );
+        if (data.type === "show" && !existTyping) {
+            const div = document.createElement("div");
+            div.classList.add("inner-typing");
+            div.setAttribute("user-id", data.userId);
+
+            div.innerHTML = `
+                <div class="sender">
+                    ${data.fullName}
+                </div>
+                <div class="inner-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            listTyping.appendChild(div);
+        }
+    });
 }
+
 // End Typing
