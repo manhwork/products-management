@@ -1,3 +1,5 @@
+import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
+
 const messages = document.querySelector(".messages");
 const scrollHeight = messages.scrollHeight;
 messages.scrollTop = scrollHeight;
@@ -12,27 +14,28 @@ if (formSendMessage) {
             socket.emit("CLIENT_SEND_MESSAGE", message);
         }
         inputMessage.value = "";
+        const existTyping = listTyping.querySelector(
+            `[user-id="${data.userId}"]`
+        );
+        existTyping.remove();
     });
 }
 // End CLIENT_SEND_MESSAGE
 
 // SERVER_SEND_MESSAGE
 socket.on("SERVER_SEND_MESSAGE", (data) => {
-    console.log(data);
     const userIdElement = document.querySelector("[user-id]");
     const userId = userIdElement.getAttribute("user-id");
-    console.log(userId);
-    console.log(data.user.id);
     const chatMessages = document.querySelector(".messages");
     const li = document.createElement("li");
-    if (userId == data.user._id) {
+    if (userId == data.userId) {
         li.classList.add("message", "right", "appeared");
-        data.user.fullName = "You";
+        data.fullName = "You";
     } else {
         li.classList.add("message", "left", "appeared");
     }
     li.innerHTML = `
-            <div class="avatar" bis_skin_checked="1">${data.user.fullName}</div>
+            <div class="avatar" bis_skin_checked="1">${data.fullName}</div>
             <div class="text_wrapper" bis_skin_checked="1">
                 <div class="text" bis_skin_checked="1">${data.content}</div>
             </div>     
@@ -42,3 +45,64 @@ socket.on("SERVER_SEND_MESSAGE", (data) => {
     messages.scrollTop = scrollHeight;
 });
 // End SERVER_SEND_MESSAGE
+
+// Event emoji click
+const emojiPicker = document.querySelector("emoji-picker");
+if (emojiPicker) {
+    emojiPicker.addEventListener("emoji-click", (e) => {
+        const emoji = e.detail.unicode;
+        inputMessage.value += emoji;
+        socket.emit("CLIENT_TYPING", "show");
+    });
+    const buttonEmoji = document.querySelector(".btn-emoji");
+    const tooltip = document.querySelector(".tooltip");
+    if (buttonEmoji) {
+        Popper.createPopper(buttonEmoji, tooltip);
+        buttonEmoji.addEventListener("click", () => {
+            tooltip.classList.toggle("shown");
+        });
+    }
+}
+
+//End Event emoji click
+
+// Typing
+const listTyping = document.querySelector(".list-inner-typing");
+if (listTyping) {
+    var timeOut;
+    inputMessage.addEventListener("keyup", (e) => {
+        socket.emit("CLIENT_TYPING", "show");
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+            socket.emit("CLIENT_TYPING", "hidden");
+        }, 3000);
+    });
+
+    socket.on("SERVER_TYPING", (data) => {
+        const existTyping = listTyping.querySelector(
+            `[user-id="${data.userId}"]`
+        );
+        if (data.type === "show" && !existTyping) {
+            const div = document.createElement("div");
+            div.classList.add("inner-typing");
+            div.setAttribute("user-id", data.userId);
+
+            div.innerHTML = `
+                <div class="sender">
+                    ${data.fullName}
+                </div>
+                <div class="inner-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            listTyping.appendChild(div);
+        }
+        if (data.type === "hidden" && existTyping) {
+            listTyping.removeChild(existTyping);
+        }
+    });
+}
+
+// End Typing

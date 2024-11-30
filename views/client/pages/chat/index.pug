@@ -7,6 +7,7 @@ block main
     +alert-error(2000)
     +alert-success(2000)
     link(rel="stylesheet", href="/css/chat.css")
+    
     div(class="container-chat" user-id=user.id)
         div(class="chat_window")
             div(class="top_menu")
@@ -15,19 +16,33 @@ block main
                     div(class="button minimize")
                     div(class="button maximize")
                 div(class="title") Chat
+            
             ul(class="messages")
                 each chat in chats
                     li(class=(chat.infoUser.id == user.id ? "message right appeared" : "message left appeared"))
-                        div(class="") #{(chat.infoUser.id == user.id ? "You" : chat.infoUser.fullName)}
+                        div(class="sender") #{(chat.infoUser.id == user.id ? "You" : chat.infoUser.fullName)}
                         div(class="text_wrapper")
                             div(class="text") #{chat.content}
+            div(class="list-inner-typing")
+                //- div(class="inner-typing")
+                //-     div(class="sender") Ben kia 
+                //-     div(class="inner-dots")
+                //-         span    
+                //-         span    
+                //-         span 
+            
             form(action="/chat", method="post" form-send-message) 
-                div(class="bottom_wrapper clearfix")
+                div(class="bottom_wrapper clearfix d-flex")
                     div(class="message_input_wrapper")
                         input(class="message_input",name="content" placeholder="Type your message here..." input-message)
+                    span(class="btn-emoji") 😀
                     div(class="send_message")
                         div(class="icon")
                         button(class="text" type="submit") Send
+            
+            div(class="tooltip" role="tooltip")
+                emoji-picker(class="light")
+        
         div(class="message_template")
             li(class="message")
                 div(class="avatar")

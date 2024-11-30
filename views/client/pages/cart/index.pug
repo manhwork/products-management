@@ -6,46 +6,45 @@ include ../../mixins/alert-success.pug
 block main 
     +alert-error(2000)
     +alert-success(2000)
+    link(rel="stylesheet", href="/css/cart.css")
 
-
-
-    .container.row 
-        .col-12 
-            .card 
-                .card-header.product-header.text-left
-                    h1.page-title.text #{pageTitle}
-                .card-body
-                    if(record.products.length > 0)
-                        table(class="table table-bodered")
-                            thead 
-                                tr 
-                                    th STT 
-                                    th Ảnh 
-                                    th Tên 
-                                    th Giá 
-                                    th Số lượng 
-                                    th Tổng tiền 
-                                    th Hành động 
-                            tbody 
-                                each item, index in record.products 
+    .container
+        .row.justify-content-center
+            .col-12
+                .card
+                    .card-header.text-left
+                        h1.page-title.text-primary #{pageTitle}
+                    .card-body
+                        if(record.products.length > 0)
+                            table(class="table table-striped table-bordered")
+                                thead 
                                     tr 
-                                        td #{index + 1}
-                                        td 
-                                            img(src= `${item.productInfo.thumbnail}`, alt=`${item.productInfo.title}` width="80px")
-                                        td 
-                                            a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}  
-                                        td #{item.productInfo.priceNew}$
-                                        td 
-                                            input(type="number" product-id=item.product_id name="quantity" value=item.quantity min=1 max=item.productInfo.stock item-id style="width : 60px")
-                                        td #{item.productInfo.priceNew * item.quantity}$
-                                        td 
-                                            a(href=`/cart/delete/${item.product_id}` class="btn btn-danger ") Xoá 
-                        
-                        h3(class="text-right") Tổng đơn hàng : #{record.totalPrice}$
+                                        th(STT) STT 
+                                        th(Ảnh) Ảnh 
+                                        th(Tên) Tên 
+                                        th(Giá) Giá 
+                                        th(Số lượng) Số lượng 
+                                        th(Tổng tiền) Tổng tiền 
+                                        th(Hành động) Hành động 
+                                tbody 
+                                    each item, index in record.products 
+                                        tr 
+                                            td #{index + 1}
+                                            td 
+                                                img(src= `${item.productInfo.thumbnail}`, alt=`${item.productInfo.title}`, class="img-thumbnail", width="80px")
+                                            td 
+                                                a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}  
+                                            td #{item.productInfo.priceNew}$ 
+                                            td 
+                                                input(type="number", product-id=item.product_id, name="quantity", value=item.quantity, min=1, max=item.productInfo.stock, class="form-control quantity-input")
+                                            td #{item.productInfo.priceNew * item.quantity}$ 
+                                            td 
+                                                a(href=`/cart/delete/${item.product_id}`, class="btn btn-danger btn-sm") Xoá 
+                            
+                            h3(class="text-right total-price") Tổng đơn hàng : #{record.totalPrice}$
 
-                        div(class="text-right mt-3")
-                            a(href="/checkout" class="btn btn-success") Thanh toán 
-                    else 
-                        p Không có sản phẩm nào trong giỏ hàng
-
-            
+                            .row 
+                                .col-12.text-right
+                                    a(href="/checkout", class="btn btn-success btn-lg") Thanh toán 
+                        else 
+                            p Không có sản phẩm nào trong giỏ hàng
