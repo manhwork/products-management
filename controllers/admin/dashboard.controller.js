@@ -10,11 +10,8 @@ module.exports.dashboard = async (req, res) => {
         orders: {},
         categoryProduct: {
             total: 0,
-            active: await ProductCategory.countDocuments({
-                deleted: false,
-                status: "active",
-            }),
-            inactive: parseInt(this.total) - parseInt(this.active),
+            active: 0,
+            inactive: 0,
         },
         products: {
             total: 0,
@@ -33,42 +30,42 @@ module.exports.dashboard = async (req, res) => {
         },
     };
 
-    // categoryProduct
-    statistic.categoryProduct.total = await ProductCategory.countDocuments({
-        deleted: false,
-    });
-    statistic.categoryProduct.active = await ProductCategory.countDocuments({
-        deleted: false,
-        active: "active",
-    });
+    const [
+        categoryProductTotal,
+        categoryProductActive,
+        productsTotal,
+        productsActive,
+        accountsTotal,
+        accountsActive,
+        userTotal,
+        userActive,
+    ] = await Promise.all([
+        ProductCategory.countDocuments({ deleted: false }),
+        ProductCategory.countDocuments({ deleted: false, status: "active" }),
+        Product.countDocuments({ deleted: false }),
+        Product.countDocuments({ deleted: false, status: "active" }),
+        Account.countDocuments({ deleted: false }),
+        Account.countDocuments({ deleted: false, status: "active" }),
+        User.countDocuments({ deleted: false }),
+        User.countDocuments({ deleted: false, status: "active" }),
+    ]);
+
+    statistic.categoryProduct.total = categoryProductTotal;
+    statistic.categoryProduct.active = categoryProductActive;
     statistic.categoryProduct.inactive =
-        statistic.categoryProduct.total - statistic.categoryProduct.active;
+        categoryProductTotal - categoryProductActive;
 
-    // products
-    statistic.products.total = await Product.countDocuments({ deleted: false });
-    statistic.products.active = await Product.countDocuments({
-        deleted: false,
-        status: "active",
-    });
-    statistic.products.inactive =
-        statistic.products.total - statistic.products.active;
+    statistic.products.total = productsTotal;
+    statistic.products.active = productsActive;
+    statistic.products.inactive = productsTotal - productsActive;
 
-    // accounts
-    statistic.accounts.total = await Account.countDocuments({ deleted: false });
-    statistic.accounts.active = await Account.countDocuments({
-        deleted: false,
-        status: "active",
-    });
-    statistic.accounts.inactive =
-        statistic.accounts.total - statistic.accounts.active;
+    statistic.accounts.total = accountsTotal;
+    statistic.accounts.active = accountsActive;
+    statistic.accounts.inactive = accountsTotal - accountsActive;
 
-    // user
-    statistic.user.total = await User.countDocuments({ deleted: false });
-    statistic.user.active = await User.countDocuments({
-        deleted: false,
-        status: "active",
-    });
-    statistic.user.inactive = statistic.user.total - statistic.user.active;
+    statistic.user.total = userTotal;
+    statistic.user.active = userActive;
+    statistic.user.inactive = userTotal - userActive;
 
     res.render("admin/pages/dashboard/index", {
         pageTitle: "Trang tổng quan",

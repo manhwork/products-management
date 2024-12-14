@@ -39,9 +39,11 @@ module.exports.orderPost = async (req, res) => {
     const userInfo = req.body;
     const cart_id = req.cookies.cartId;
     let products = [];
+
     const cart = await Cart.findOne({
         _id: cart_id,
     });
+
     for (const item of cart.products) {
         const product = await Product.findOne({
             _id: item.product_id,

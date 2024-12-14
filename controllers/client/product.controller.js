@@ -41,8 +41,6 @@ module.exports.detail = async (req, res) => {
         product.priceNew =
             product.price * (1 - product.discountPercentage / 100);
 
-        // console.log(product);
-
         res.render("client/pages/products/detail", {
             pageTitle: req.params.slugProduct,
             product: product,
@@ -66,11 +64,8 @@ module.exports.category = async (req, res) => {
             status: "active",
         });
 
-        // console.log(await getSubCategory(Category.id));
         const listSubCategory = await getSubCateHelper.getSubCate(Category.id);
-        // console.log(listSubCategory);
         const getSubCategoryId = listSubCategory.map((item) => item.id);
-        // console.log(getSubCategoryId);
 
         const products = await Product.find({
             deleted: false,

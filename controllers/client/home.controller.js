@@ -20,7 +20,8 @@ module.exports.index = async (req, res) => {
         status: "active",
     })
         .sort({ position: "desc" })
-        .limit(6);
+        .limit(6)
+        .lean();
 
     const newProductsNew = productsHelper.newPrice(newProducts);
     // End Hiển thị sản phẩm mới nhất

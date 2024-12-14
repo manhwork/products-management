@@ -28,6 +28,7 @@ module.exports.registerPost = async (req, res) => {
     req.body.password = md5(req.body.password);
     const user = new User(req.body);
     await user.save();
+
     req.flash("success", "Đăng kí tài khoản thành công");
     res.cookie("tokenUser", user.tokenUser);
     const user_id = user.id;
@@ -59,16 +60,19 @@ module.exports.loginPost = async (req, res) => {
         email: req.body.email,
         deleted: false,
     });
+
     if (!user) {
         req.flash("error", "Email không tồn tại ");
         res.redirect("back");
         return;
     }
+
     if (md5(req.body.password) !== user.password) {
         req.flash("error", "Mật khẩu không đúng");
         res.redirect("back");
         return;
     }
+
     if (user.status === "inactive") {
         req.flash("error", "Tài khoản đã bị khoá");
         res.redirect("back");
@@ -225,4 +229,21 @@ module.exports.userInfo = async (req, res) => {
     res.render("client/pages/user/info", {
         pageTitle: "Thông tin tài khoản",
     });
+};
+
+// [POST] /user/info/:user_id
+module.exports.userInfoPost = async (req, res) => {
+    const tokenUser = req.cookies.tokenUser;
+
+    await User.updateOne(
+        {
+            tokenUser: tokenUser,
+            deleted: false,
+        },
+        req.body
+    );
+
+    req.flash("success", "Cập nhật thành công !");
+
+    res.redirect("/user/info");
 };

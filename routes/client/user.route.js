@@ -47,4 +47,10 @@ router.post(
 
 router.get("/info", authMiddleWare.authMiddleware, controller.userInfo);
 
+router.post(
+    "/info/:id",
+    authMiddleWare.authMiddleware,
+    controller.userInfoPost
+);
+
 module.exports = router;
