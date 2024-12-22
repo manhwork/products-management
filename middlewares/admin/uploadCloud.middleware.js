@@ -7,9 +7,12 @@ const streamifier = require("streamifier");
 
 // Configuration
 cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_KEY,
-    api_secret: process.env.CLOUD_SECRET, // Click 'View API Keys' above to copy your API secret
+    cloud_name: "dut4za1x0",
+    api_key: "748225952331931",
+    api_secret: "FLIupkOOl5lLeVGGSbC58iM3dl8", // Click 'View API Keys' above to copy your API secret
+    // cloud_name: process.env.CLOUD_NAME,
+    // api_key: process.env.CLOUD_KEY,
+    // api_secret: process.env.CLOUD_SECRET, // Click 'View API Keys' above to copy your API secret
 });
 // End Configuration
 
